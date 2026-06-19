@@ -29,11 +29,15 @@
     .nav-wsp {
       background: #25D366;
       color: #fff;
-      font-size: 13px;
-      font-weight: 600;
-      padding: 8px 18px;
-      border-radius: 20px;
+      font-size: 20px;
+      line-height: 1;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
       text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .nav-cta {
       background: #9B5DE5;
@@ -48,35 +52,23 @@
 
     /* HERO */
     .hero {
-      background: #9B5DE5;
-      padding: 80px 60px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
-      min-height: 540px;
       position: relative;
-      overflow: hidden;
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 60px 100px;
+      background-image: url('assets/img/products/stencils.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
     }
-    .hero::before {
-      content: '';
+    .hero-overlay {
       position: absolute;
-      top: -100px; right: -100px;
-      width: 500px; height: 500px;
-      background: #7a45c7;
-      border-radius: 50%;
-      opacity: 0.4;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(60,15,110,0.72) 0%, rgba(155,93,229,0.50) 60%, rgba(242,95,92,0.20) 100%);
+      z-index: 1;
     }
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -80px; left: 200px;
-      width: 300px; height: 300px;
-      background: #F25F5C;
-      border-radius: 50%;
-      opacity: 0.15;
-    }
-    .hero-text { position: relative; z-index: 2; }
+    .hero-text { position: relative; z-index: 2; max-width: 600px; }
     .hero-pill {
       display: inline-flex;
       align-items: center;
@@ -89,22 +81,23 @@
       padding: 6px 16px;
       border-radius: 20px;
       margin-bottom: 24px;
+      backdrop-filter: blur(6px);
     }
     .hero-pill span { width: 8px; height: 8px; background: #fff; border-radius: 50%; display: inline-block; }
     .hero-text h1 {
-      font-size: 54px;
+      font-size: 64px;
       font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 20px;
+      line-height: 1.05;
+      margin-bottom: 22px;
       color: #fff;
     }
     .hero-text h1 em { font-style: normal; color: #F7B7C3; }
     .hero-text p {
-      font-size: 17px;
+      font-size: 18px;
       line-height: 1.7;
-      color: rgba(255,255,255,0.85);
-      margin-bottom: 36px;
-      max-width: 420px;
+      color: rgba(255,255,255,0.88);
+      margin-bottom: 40px;
+      max-width: 460px;
     }
     .hero-btns { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
     .btn-hero-main {
@@ -128,43 +121,6 @@
       gap: 8px;
       border-bottom: 1px solid rgba(255,255,255,0.5);
       padding-bottom: 2px;
-    }
-    .hero-img-area {
-      position: relative;
-      z-index: 2;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      gap: 12px;
-      height: 380px;
-    }
-    .hero-img-main {
-      grid-row: 1 / 3;
-      border-radius: 16px;
-      overflow: hidden;
-      background: rgba(255,255,255,0.1);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .hero-img-main img { width: 100%; height: 100%; object-fit: cover; }
-    .hero-img-sm {
-      border-radius: 12px;
-      overflow: hidden;
-      background: rgba(255,255,255,0.1);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 32px;
-    }
-    .hero-img-sm img { width: 100%; height: 100%; object-fit: cover; }
-    .hero-stat {
-      position: absolute;
-      bottom: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 0;
-      background: #fff;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
     }
     .stat-item {
       padding: 16px 24px;
@@ -302,54 +258,64 @@
       display: inline-block;
     }
     .btn-diy:hover { background: #f0e8ff; }
-    .diy-imgs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
+    .diy-imgs { display: flex; justify-content: center; align-items: center; }
+    .diy-img-wrap { perspective: 900px; cursor: pointer; }
     .diy-img {
-      border-radius: 12px;
+      border-radius: 16px;
       overflow: hidden;
-      height: 160px;
-      background: rgba(0,0,0,0.1);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 40px;
+      width: 380px;
+      height: 380px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.25);
     }
-    .diy-img img { width: 100%; height: 100%; object-fit: cover; }
-    .diy-img:first-child { grid-row: 1 / 3; height: auto; }
+    .diy-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .diy-tooltip {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(12px);
+      padding: 18px 22px 22px;
+      transform: translateY(101%);
+      transition: transform 0.35s cubic-bezier(0.34,1.1,0.64,1);
+    }
+    .diy-img-wrap:hover .diy-tooltip { transform: translateY(0); }
+    .tip-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #9B5DE5; display: block; }
+    .tip-title { font-size: 15px; font-weight: 700; color: #111; margin: 3px 0 14px; }
+    .tip-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+    .tip-tags span { background: #f0e8ff; color: #7a45c7; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
 
     /* PROYECTOS */
-    .projects-section { padding: 60px; }
-    .projects-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; }
-    .projects-header h2 { font-size: 32px; font-weight: 700; }
+    .projects-section { padding: 50px 60px; background: #fafafa; }
+    .projects-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; }
+    .proj-eyebrow { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #9B5DE5; margin-bottom: 8px; }
+    .projects-header h2 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
     .projects-header h2 em { font-style: normal; color: #9B5DE5; }
-    .projects-header a { color: #9B5DE5; font-weight: 600; font-size: 15px; }
+    .proj-story { font-size: 14px; color: #777; line-height: 1.6; max-width: 440px; }
+    .projects-header > a { color: #9B5DE5; font-weight: 600; font-size: 14px; flex-shrink: 0; margin-top: 6px; text-decoration: none; white-space: nowrap; }
     .proj-grid {
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      grid-template-rows: 200px 200px;
-      gap: 12px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
     }
     .proj-item {
-      border-radius: 14px;
+      border-radius: 16px;
       overflow: hidden;
-      position: relative;
+      background: #f0e8ff;
     }
-    .proj-item.big { grid-row: 1 / 3; }
-    .proj-item img { width: 100%; height: 100%; object-fit: cover; }
-    .proj-placeholder {
-      width: 100%; height: 100%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 48px;
+    .proj-img {
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
     }
-    .proj-overlay {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      background: linear-gradient(transparent, rgba(0,0,0,0.65));
-      padding: 20px 16px 16px;
-      color: #fff;
+    .proj-img img { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; transition: transform 0.4s ease; padding: 8px; }
+    .proj-item:hover .proj-img img { transform: scale(1.04); }
+    .proj-caption {
+      padding: 16px 18px 20px;
+      background: #fff;
     }
-    .proj-overlay h4 { font-size: 15px; font-weight: 600; }
-    .proj-overlay span { font-size: 12px; opacity: 0.8; }
+    .proj-caption h4 { font-size: 15px; font-weight: 700; color: #111; margin-bottom: 6px; }
+    .proj-caption p { font-size: 13px; line-height: 1.55; color: #666; }
 
     /* FOOTER */
     footer {
@@ -389,22 +355,37 @@
     /* BADGE */
     .proposal-badge{display:none}
     .proposal-overlay{position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px}
-    .proposal-modal{background:#111;color:#FEE440;border-radius:18px;padding:36px 40px;max-width:460px;width:100%;text-align:center;position:relative;box-shadow:0 24px 64px rgba(0,0,0,.45)}
-    .proposal-modal h2{font-size:22px;font-weight:800;letter-spacing:.04em;margin-bottom:8px}
-    .proposal-modal p{font-size:14px;color:#e8d88a;line-height:1.6;margin-bottom:24px}
-    .proposal-modal .pill{display:inline-block;background:#FEE440;color:#111;font-size:11px;font-weight:700;letter-spacing:.1em;padding:4px 12px;border-radius:30px;margin-bottom:20px}
-    .proposal-modal .close-btn{background:#FEE440;color:#111;border:none;cursor:pointer;font-weight:800;font-size:14px;padding:11px 28px;border-radius:30px;transition:.18s}
-    .proposal-modal .close-btn:hover{background:#fff}
+    .proposal-modal{background:linear-gradient(150deg,#9B5DE5,#7a45c7);color:#fff;border-radius:26px;padding:38px 40px;max-width:470px;width:100%;text-align:center;position:relative;box-shadow:0 26px 70px rgba(80,30,140,.55)}
+    .proposal-modal h2{font-size:24px;font-weight:800;letter-spacing:-.01em;margin-bottom:8px;color:#fff}
+    .proposal-modal p{font-size:14px;color:rgba(255,255,255,.9);line-height:1.6;margin-bottom:24px}
+    .proposal-modal .pill{display:inline-block;background:#FEE440;color:#111;font-size:11px;font-weight:800;letter-spacing:.1em;padding:5px 14px;border-radius:30px;margin-bottom:18px}
+    .proposal-modal .close-btn{background:#FEE440;color:#111;border:none;cursor:pointer;font-weight:800;font-size:14px;padding:12px 30px;border-radius:30px;transition:.18s}
+    .proposal-modal .close-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.25)}
+    .proposal-modal .lead{margin-bottom:16px}
+    .proposal-modal .guide-title{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#FEE440;text-align:left;margin-bottom:10px}
+    .proposal-modal .guide{text-align:left;margin:0 0 26px;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+    .proposal-modal .guide li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:rgba(255,255,255,.92);line-height:1.45}
+    .proposal-modal .guide .ic{flex:none;font-size:15px}
+    .proposal-modal .guide b{color:#FEE440;font-weight:700}
   </style>
 </head>
 <body>
+
+<!-- VOLVER AL ÍNDICE -->
+<a href="index.html" title="Volver al índice de propuestas" style="position:fixed;bottom:18px;left:18px;z-index:2900;display:inline-flex;align-items:center;gap:7px;background:#9B5DE5;color:#fff;text-decoration:none;font:700 13.5px/1 -apple-system,'Segoe UI',Roboto,sans-serif;padding:11px 18px;border-radius:30px;box-shadow:0 6px 18px rgba(155,93,229,.5);transition:transform .15s,background .15s" onmouseover="this.style.transform='translateY(-2px)';this.style.background='#7a45c7'" onmouseout="this.style.transform='none';this.style.background='#9B5DE5'">← Volver al índice de propuestas</a>
 
 <!-- PROPOSAL MODAL -->
 <div class="proposal-overlay" id="proposalOverlay">
   <div class="proposal-modal">
     <div class="pill">PROTOTIPO</div>
-    <h2>Propuesta B</h2>
-    <p>Vibrante y Joven<br>Esta es una propuesta de rediseño para Bordalíquido.<br>Explora libremente y cierra esta ventana para verla.</p>
+    <h2>Propuesta B · Vibrante y Joven</h2>
+    <p class="lead">¡Llegaste a la versión <b>más enérgica</b>! Es un mockup donde el color manda. Mientras la recorres, no dejes de:</p>
+    <div class="guide-title">Dale energía</div>
+    <ul class="guide">
+      <li><span class="ic">✨</span><span>Fíjate en el <b>color y el movimiento</b>: pasa el cursor por las categorías y los productos para ver los efectos.</span></li>
+      <li><span class="ic">🔍</span><span>Haz <b>clic en las imágenes</b> de proyectos para verlas ampliadas.</span></li>
+      <li><span class="ic">🛒</span><span>Pulsa el botón <b>"+"</b> de un producto y observa la notificación.</span></li>
+    </ul>
     <button class="close-btn" onclick="document.getElementById('proposalOverlay').style.display='none'">Explorar propuesta →</button>
   </div>
 </div>
@@ -420,13 +401,14 @@
     <a href="#">Contacto</a>
   </div>
   <div class="nav-right">
-    <a href="#" class="nav-wsp">💬 WhatsApp</a>
+    <a href="#" class="nav-wsp" title="WhatsApp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
     <a href="#" class="nav-cta">Ver catálogo</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-overlay"></div>
   <div class="hero-text">
     <div class="hero-pill"><span></span> Productores colombianos desde el año 2000</div>
     <h1>Pinta,<br>crea,<br><em>transforma.</em></h1>
@@ -434,20 +416,6 @@
     <div class="hero-btns">
       <a href="#" class="btn-hero-main">🎨 Explorar productos</a>
       <a href="#" class="btn-hero-sec">Ver proyectos →</a>
-    </div>
-  </div>
-  <div class="hero-img-area">
-    <div class="hero-img-main">
-      <img src="assets/img/projects/macaw.png" alt="Proyecto" onerror="this.parentElement.style.fontSize='60px'; this.remove()">
-      🦜
-    </div>
-    <div class="hero-img-sm">
-      <img src="assets/img/projects/butterfly.png" alt="Mariposa" onerror="this.remove()">
-      🦋
-    </div>
-    <div class="hero-img-sm">
-      <img src="assets/img/products/fabric-paint.png" alt="Pinturas" onerror="this.remove()">
-      🎨
     </div>
   </div>
 </section>
@@ -601,17 +569,20 @@
     <a href="#" class="btn-diy">Ver tips y tutoriales →</a>
   </div>
   <div class="diy-imgs">
-    <div class="diy-img">
-      <img src="assets/img/projects/owl.png" alt="Búho" onerror="this.remove()">
-      🦉
-    </div>
-    <div class="diy-img">
-      <img src="assets/img/projects/hummingbird.png" alt="Colibrí" onerror="this.remove()">
-      🐦
-    </div>
-    <div class="diy-img">
-      <img src="assets/img/products/stencils.jpg" alt="Estenciles" onerror="this.remove()">
-      🎭
+    <div class="diy-img-wrap">
+      <div class="diy-img" id="owlCard">
+        <img src="assets/img/projects/owl.png" alt="Búho pintado con Bordalíquido">
+        <div class="diy-tooltip">
+          <span class="tip-label">Técnica</span>
+          <p class="tip-title">Pintura decorativa en tela con stencil</p>
+          <span class="tip-label">Productos usados</span>
+          <div class="tip-tags">
+            <span>Pintura Bordalíquido tela</span>
+            <span>Stencil búho</span>
+            <span>Sellador mate</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -619,58 +590,39 @@
 <!-- PROYECTOS -->
 <section class="projects-section">
   <div class="projects-header">
-    <h2>Proyectos que te van a <em>inspirar</em></h2>
+    <div>
+      <p class="proj-eyebrow">Colección Navidad ✦ Hecho a mano</p>
+      <h2>Proyectos que te van a <em>inspirar</em></h2>
+      <p class="proj-story">Proyectos reales hechos con nuestras pinturas. Alta pigmentación, colores que no destiñen y acabados que duran años — listos para vender o regalar.</p>
+    </div>
     <a href="#">Ver todos →</a>
   </div>
   <div class="proj-grid">
-    <div class="proj-item big">
-      <div class="proj-placeholder" style="background:#9B5DE5;">
-        <img src="assets/img/projects/macaw.png" alt="Guacamaya" style="width:100%;height:100%;object-fit:cover;" onerror="this.remove()">
-        🦜
+    <div class="proj-item">
+      <div class="proj-img">
+        <img src="assets/img/projects/christmas-ball-reindeer.png" alt="Bola navideña reno">
       </div>
-      <div class="proj-overlay">
-        <h4>Guacamaya en tela</h4>
-        <span>Pintura textil + escarcha</span>
+      <div class="proj-caption">
+        <h4>Bola navideña — Reno</h4>
+        <p>Pintura acrílica sobre esfera de icopor. Acabado duradero, colores vibrantes. Ideal para vender en temporada.</p>
       </div>
     </div>
     <div class="proj-item">
-      <div class="proj-placeholder" style="background:#00BBF9;">
-        <img src="assets/img/projects/christmas-ball-reindeer.png" alt="Bola Navidad" style="width:100%;height:100%;object-fit:cover;" onerror="this.remove()">
-        🎄
+      <div class="proj-img">
+        <img src="assets/img/projects/christmas-ball-reindeer2.png" alt="Bola navideña reno variante">
       </div>
-      <div class="proj-overlay">
-        <h4>Bola navideña</h4>
-        <span>Proyecto en tela</span>
-      </div>
-    </div>
-    <div class="proj-item">
-      <div class="proj-placeholder" style="background:#F25F5C;">
-        <img src="assets/img/projects/elephant.png" alt="Elefante" style="width:100%;height:100%;object-fit:cover;" onerror="this.remove()">
-        🐘
-      </div>
-      <div class="proj-overlay" style="background:linear-gradient(transparent, rgba(0,0,0,0.6))">
-        <h4>Elefante en tela</h4>
-        <span>Proyecto en tela</span>
+      <div class="proj-caption">
+        <h4>Variante de diseño</h4>
+        <p>La misma técnica, diferente composición. Demuestra cuántas posibilidades ofrece una sola referencia de color.</p>
       </div>
     </div>
     <div class="proj-item">
-      <div class="proj-placeholder" style="background:#F25F5C;">
-        <img src="assets/img/projects/cabin.png" alt="Cabaña" style="width:100%;height:100%;object-fit:cover;" onerror="this.remove()">
-        🏡
+      <div class="proj-img">
+        <img src="assets/img/projects/christmas-ball-snowman.png" alt="Bola navideña muñeco de nieve">
       </div>
-      <div class="proj-overlay">
-        <h4>Cabaña decorativa</h4>
-        <span>Proyecto en MDF</span>
-      </div>
-    </div>
-    <div class="proj-item">
-      <div class="proj-placeholder" style="background:#F7B7C3;">
-        <img src="assets/img/projects/owl2.png" alt="Búho 2" style="width:100%;height:100%;object-fit:cover;" onerror="this.remove()">
-        🦉
-      </div>
-      <div class="proj-overlay">
-        <h4>Búho nocturno</h4>
-        <span>Pintura textil</span>
+      <div class="proj-caption">
+        <h4>Bola navideña — Muñeco</h4>
+        <p>Apto para principiantes. Con nuestros tutoriales paso a paso, cualquiera puede lograr este resultado.</p>
       </div>
     </div>
   </div>
@@ -792,6 +744,25 @@
       if(img && img.getAttribute('src')) openLightbox(img.getAttribute('src'), h?h.textContent:'');
     });
   });
+
+  /* --- Tilt parallax imagen búho --- */
+  var owlWrap = document.querySelector('.diy-img-wrap');
+  var owlCard = document.getElementById('owlCard');
+  if (owlWrap && owlCard) {
+    owlWrap.addEventListener('mousemove', function(e) {
+      var rect = owlCard.getBoundingClientRect();
+      var dx = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+      var dy = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+      owlCard.style.transition = 'transform 0.1s ease, box-shadow 0.15s ease';
+      owlCard.style.transform = 'rotateY(' + (dx * 14) + 'deg) rotateX(' + (-dy * 14) + 'deg) scale(1.03)';
+      owlCard.style.boxShadow = '0 28px 70px rgba(0,0,0,0.35)';
+    });
+    owlWrap.addEventListener('mouseleave', function() {
+      owlCard.style.transition = 'transform 0.5s ease, box-shadow 0.5s ease';
+      owlCard.style.transform = '';
+      owlCard.style.boxShadow = '0 12px 40px rgba(0,0,0,0.25)';
+    });
+  }
 
   /* --- Evitar saltos "#" --- */
   document.querySelectorAll('a[href="#"]').forEach(function(a){a.addEventListener('click',function(e){if(!a.dataset.handled)e.preventDefault();});});

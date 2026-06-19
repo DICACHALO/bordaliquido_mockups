@@ -13,7 +13,7 @@
       --muted: #8A7D6B;
       --light: #F0E9DC;
       --yellow: #F25F5C;
-      --purple: #9B5DE5;
+      --purple: #A0784A;
       --coral: #F25F5C;
       --white: #FEFCF9;
     }
@@ -74,12 +74,22 @@
       background: var(--ink); color: var(--yellow);
       font-size: 14px; font-weight: 600;
       padding: 14px 30px; border-radius: 2px; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 10px;
+      position: relative; overflow: hidden;
+      transition: background 0.25s, gap 0.25s;
     }
-    .btn-ink:hover { background: #333; }
+    .btn-ink::after { content: '→'; transition: transform 0.25s; }
+    .btn-ink:hover { background: #333; gap: 16px; }
+    .btn-ink:hover::after { transform: translateX(4px); }
     .btn-text {
       font-size: 14px; color: var(--ink); text-decoration: none;
+      display: inline-flex; align-items: center; gap: 6px;
       border-bottom: 1px solid var(--ink); padding-bottom: 2px;
+      transition: gap 0.2s, color 0.2s;
     }
+    .btn-text::after { content: '→'; font-size: 13px; transition: transform 0.2s; }
+    .btn-text:hover { color: var(--coral); border-color: var(--coral); gap: 10px; }
+    .btn-text:hover::after { transform: translateX(3px); }
     .hero-right {
       position: relative;
       border-left: 1px solid rgba(30,26,20,0.1);
@@ -92,7 +102,7 @@
       overflow: hidden; background: var(--light);
       display: flex; align-items: center; justify-content: center; font-size: 60px;
     }
-    .hero-img-main img { width:100%; height:100%; object-fit:cover; }
+    .hero-img-main img { width:100%; height:100%; object-fit:contain; }
     .hero-caption { padding: 16px 0 0; font-size: 12px; color: var(--muted); letter-spacing: 0.5px; }
     .hero-stats {
       position: absolute; bottom: 40px; left: -40px;
@@ -122,8 +132,8 @@
     .cat-tile:hover { background: #e8d5b7; color: var(--ink); }
     .cat-tile:hover .cat-tile-muted { color: var(--muted); }
     .cat-tile:hover .cat-tile-arrow { color: var(--yellow); }
-    .cat-tile-img { height: 100px; border-radius: 2px; overflow:hidden; background: var(--light); display:flex; align-items:center; justify-content:center; font-size:32px; }
-    .cat-tile-img img { width:100%; height:100%; object-fit:cover; }
+    .cat-tile-img { height: 100px; border-radius: 2px; overflow:hidden; background: var(--light); display:flex; align-items:center; justify-content:center; }
+    .cat-tile-img img { width:100%; height:100%; object-fit:contain; padding: 10px; }
     .cat-tile h3 { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; line-height: 1.3; }
     .cat-tile-muted { font-size: 12px; color: var(--muted); }
     .cat-tile-arrow { font-size: 18px; color: var(--coral); margin-top: auto; }
@@ -178,17 +188,94 @@
     }
     .btn-add-prod:hover { background: #333; }
 
-    /* PROYECTOS EDITORIAL */
+    /* PROYECTOS EDITORIAL — Galería comprable */
     .proj-section { padding: 80px 60px; background: var(--white); }
-    .proj-masonry { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: auto; gap: 20px; margin-top: 48px; }
-    .proj-item { border-radius: 2px; overflow:hidden; }
-    .proj-item.tall { grid-row: span 2; }
-    .proj-img { height: 240px; background: var(--light); display:flex; align-items:center; justify-content:center; font-size:52px; overflow:hidden; }
-    .proj-item.tall .proj-img { height: 100%; min-height: 500px; }
-    .proj-img img { width:100%; height:100%; object-fit:cover; }
-    .proj-body { padding: 18px; background: var(--cream); border: 1px solid rgba(30,26,20,0.08); border-top: none; }
-    .proj-body h4 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; margin-bottom: 4px; color: var(--ink); }
-    .proj-body p { font-size: 13px; color: var(--muted); }
+    .proj-lead { font-size: 15px; color: var(--muted); line-height: 1.7; max-width: 520px; margin: -28px 0 28px; }
+    .proj-lead b { color: var(--ink); font-weight: 600; }
+    /* filtros editoriales */
+    .proj-filters { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 36px; }
+    .proj-filters .flab { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-right: 6px; }
+    .pf-chip { font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 500; color: var(--ink); background: var(--white); border: 1px solid rgba(30,26,20,0.18); padding: 8px 16px; border-radius: 2px; cursor: pointer; transition: .18s; }
+    .pf-chip:hover { border-color: var(--ink); }
+    .pf-chip.on { background: var(--ink); color: var(--yellow); border-color: var(--ink); }
+    /* masonry asimétrico */
+    .proj-masonry { display: grid; grid-template-columns: repeat(6,1fr); grid-auto-rows: 1fr; gap: 20px; }
+    .proj-item { grid-column: span 2; position: relative; border: 1px solid rgba(30,26,20,0.1); border-radius: 2px; overflow: hidden; background: var(--white); cursor: pointer; transition: transform .25s, box-shadow .25s; display: flex; flex-direction: column; }
+    .proj-item:hover { transform: translateY(-5px); box-shadow: 0 18px 44px rgba(30,26,20,0.13); }
+    .proj-item.feat { grid-column: span 3; grid-row: span 2; }
+    .proj-img { position: relative; height: 230px; background: var(--light); display: flex; align-items: center; justify-content: center; font-size: 52px; overflow: hidden; }
+    .proj-item.feat .proj-img { height: 100%; min-height: 360px; }
+    .proj-img img { width: 100%; height: 100%; object-fit: cover; }
+    .proj-img .pnum { position: absolute; top: 14px; left: 16px; font-family: 'Playfair Display', serif; font-style: italic; font-size: 15px; color: #fff; z-index: 3; text-shadow: 0 1px 6px rgba(0,0,0,.4); }
+    .proj-img .pbadge { position: absolute; top: 14px; right: 14px; z-index: 3; background: var(--white); font-size: 11px; font-weight: 600; color: var(--ink); padding: 5px 10px; border-radius: 2px; letter-spacing: .3px; }
+    .proj-img .pjars { position: absolute; bottom: 0; left: 0; right: 0; display: flex; gap: 6px; align-items: flex-end; justify-content: center; padding: 10px; z-index: 2; filter: drop-shadow(0 8px 14px rgba(0,0,0,.22)); }
+    .proj-img .pjars img { width: auto; height: 78px; object-fit: contain; }
+    .proj-item.feat .proj-img .pjars img { height: 104px; }
+    .proj-img .phint { position: absolute; bottom: 9px; left: 0; right: 0; text-align: center; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.78); z-index: 3; }
+    .proj-body { padding: 16px 18px 18px; background: var(--cream); border-top: 1px solid rgba(30,26,20,0.08); flex: 1; display: flex; flex-direction: column; }
+    .proj-cat { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--coral); margin-bottom: 6px; }
+    .proj-body h4 { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; margin-bottom: 6px; color: var(--ink); line-height: 1.15; }
+    .proj-row { display: flex; gap: 14px; font-size: 12px; color: var(--muted); }
+    .proj-shop { margin-top: 12px; font-size: 13px; font-weight: 600; color: var(--ink); display: inline-flex; align-items: center; gap: 7px; }
+    .proj-shop::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--coral); }
+    .proj-item:hover .proj-shop { color: var(--coral); }
+    .proj-item .proj-shop::after { content: '→'; transition: transform .2s; }
+    .proj-item:hover .proj-shop::after { transform: translateX(3px); }
+
+    /* MODAL receta comprable */
+    .recipe-modal { position: fixed; inset: 0; z-index: 4000; display: none; }
+    .recipe-modal.open { display: block; }
+    .recipe-ov { position: absolute; inset: 0; background: rgba(30,26,20,.55); backdrop-filter: blur(4px); }
+    .recipe-sheet { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: min(940px,94vw); max-height: 92vh; overflow: auto; background: var(--white); border-radius: 4px; box-shadow: 0 40px 120px rgba(0,0,0,.4); }
+    .recipe-grid { display: grid; grid-template-columns: 1fr 1fr; }
+    .rc-photo { position: relative; min-height: 380px; background: var(--light); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .rc-photo > img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+    .rc-photo .rnum { position: absolute; top: 18px; left: 20px; font-family: 'Playfair Display', serif; font-style: italic; color: #fff; font-size: 16px; z-index: 4; text-shadow: 0 1px 8px rgba(0,0,0,.5); }
+    .rc-jars { position: relative; z-index: 2; display: flex; gap: 8px; align-items: flex-end; filter: drop-shadow(0 14px 22px rgba(0,0,0,.25)); }
+    .rc-jars img { height: 130px; }
+    .rc-hot { position: absolute; width: 26px; height: 26px; border-radius: 50%; background: #fff; border: 2px solid var(--coral); color: var(--coral); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 5; box-shadow: 0 3px 10px rgba(0,0,0,.25); animation: rcpulse 2s infinite; }
+    @keyframes rcpulse { 0%{box-shadow:0 0 0 0 rgba(242,95,92,.5)} 70%{box-shadow:0 0 0 11px rgba(242,95,92,0)} 100%{box-shadow:0 0 0 0 rgba(242,95,92,0)} }
+    .rc-body { padding: 30px 30px 26px; }
+    .rc-close { position: absolute; top: 14px; right: 16px; z-index: 8; width: 36px; height: 36px; border-radius: 50%; border: none; background: #fff; cursor: pointer; font-size: 16px; box-shadow: 0 4px 14px rgba(0,0,0,.18); }
+    .rc-cat { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--coral); }
+    .rc-title { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700; line-height: 1.05; margin: 6px 0 10px; color: var(--ink); }
+    .rc-title em { font-style: italic; color: var(--purple); }
+    .rc-desc { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 16px; }
+    .rc-stats { display: flex; gap: 22px; border-top: 1px solid rgba(30,26,20,0.1); border-bottom: 1px solid rgba(30,26,20,0.1); padding: 13px 0; margin-bottom: 18px; }
+    .rc-stats b { display: block; font-size: 10px; color: var(--muted); font-weight: 500; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px; }
+    .rc-stats span { font-size: 14px; color: var(--ink); font-weight: 500; }
+    .rc-math { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 12px; }
+    .rc-math h5 { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--ink); }
+    .rc-math .look { font-style: italic; font-family: 'Playfair Display', serif; font-size: 15px; color: var(--coral); }
+    .rc-mat { display: flex; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px dashed rgba(30,26,20,0.14); }
+    .rc-mat .rsw { flex: 0 0 42px; height: 42px; border-radius: 2px; background: var(--light); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .rc-mat .rsw img { height: 38px; }
+    .rc-mat .rinfo { flex: 1; min-width: 0; }
+    .rc-mat .rinfo .rn { font-size: 13.5px; font-weight: 600; color: var(--ink); line-height: 1.2; }
+    .rc-mat .rinfo .rf { font-size: 11.5px; color: var(--muted); }
+    .rc-mat .rpr { font-size: 13.5px; font-weight: 600; color: var(--ink); white-space: nowrap; }
+    .rc-mat .radd { border: 1px solid rgba(30,26,20,0.18); background: #fff; width: 30px; height: 30px; border-radius: 2px; cursor: pointer; font-size: 16px; color: var(--ink); transition: .15s; }
+    .rc-mat .radd:hover { background: var(--ink); color: var(--yellow); border-color: var(--ink); }
+    .rc-kit { margin-top: 18px; background: var(--ink); border-radius: 2px; padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+    .rc-kit .kl { font-size: 11px; color: rgba(255,255,255,.55); letter-spacing: .5px; }
+    .rc-kit .kv { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 900; color: var(--yellow); }
+    .rc-kit .kbtns { display: flex; gap: 10px; flex-wrap: wrap; }
+    .rc-kit button { font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600; border: none; cursor: pointer; padding: 12px 18px; border-radius: 2px; transition: .18s; }
+    .rc-kit .kfull { background: var(--yellow); color: #fff; }
+    .rc-kit .kfull:hover { background: #e04b48; }
+    .rc-kit .kghost { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.3); }
+    .rc-kit .kghost:hover { border-color: #fff; }
+    @media (max-width: 900px) {
+      .proj-masonry { grid-template-columns: repeat(2,1fr); }
+      .proj-item, .proj-item.feat { grid-column: span 1; grid-row: auto; }
+      .proj-item.feat .proj-img { min-height: 230px; }
+      .recipe-grid { grid-template-columns: 1fr; }
+      .rc-photo { min-height: 250px; }
+    }
+    @media (max-width: 560px) {
+      .proj-section { padding: 60px 22px; }
+      .proj-masonry { grid-template-columns: 1fr; }
+    }
 
     /* HISTORIA */
     .story-section { padding: 80px 60px; background: var(--cream); border-top: 1px solid rgba(30,26,20,0.1); }
@@ -211,16 +298,32 @@
 
     /* CTA */
     .cta-section {
-      background: var(--yellow); padding: 70px 60px;
+      background: #E8D5B7; padding: 70px 60px;
       display: flex; align-items: center; justify-content: space-between; gap: 40px;
     }
-    .cta-text h2 { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 900; color: #fff; line-height: 1.2; margin-bottom: 12px; }
-    .cta-text h2 em { font-style: italic; }
-    .cta-text p { font-size: 16px; color: rgba(255,255,255,0.75); }
+    .cta-text h2 { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 900; color: var(--ink); line-height: 1.2; margin-bottom: 12px; }
+    .cta-text h2 em { font-style: italic; color: var(--coral); }
+    .cta-text p { font-size: 16px; color: var(--muted); }
     .cta-btns { display:flex; gap:14px; flex-shrink:0; }
-    .btn-cta-dark { background: var(--ink); color: #fff; font-size:15px; font-weight:600; padding:16px 32px; border-radius:2px; text-decoration:none; }
-    .btn-cta-dark:hover { background: #333; }
-    .btn-cta-wsp { background: #25D366; color:#fff; font-size:15px; font-weight:600; padding:16px 24px; border-radius:2px; text-decoration:none; }
+    .btn-cta-dark {
+      background: var(--ink); color: #fff;
+      font-size: 15px; font-weight: 600;
+      padding: 16px 32px; border-radius: 2px; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 10px;
+      transition: background 0.25s, gap 0.25s;
+    }
+    .btn-cta-dark::after { content: '→'; transition: transform 0.25s; }
+    .btn-cta-dark:hover { background: #333; gap: 16px; }
+    .btn-cta-dark:hover::after { transform: translateX(4px); }
+    .btn-cta-wsp {
+      background: #25D366; color: #fff;
+      font-size: 15px; font-weight: 600;
+      padding: 14px 24px; border-radius: 2px; text-decoration: none;
+      border: 2px solid #25D366;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: background 0.22s, color 0.22s;
+    }
+    .btn-cta-wsp:hover { background: #1ebe5a; color: #fff; }
 
     /* FOOTER */
     footer { background: var(--ink); color: #fff; padding: 60px 60px 30px; }
@@ -235,22 +338,37 @@
     /* BADGE */
     .proposal-badge{display:none}
     .proposal-overlay{position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px}
-    .proposal-modal{background:#111;color:#FEE440;border-radius:18px;padding:36px 40px;max-width:460px;width:100%;text-align:center;position:relative;box-shadow:0 24px 64px rgba(0,0,0,.45)}
-    .proposal-modal h2{font-size:22px;font-weight:800;letter-spacing:.04em;margin-bottom:8px}
-    .proposal-modal p{font-size:14px;color:#e8d88a;line-height:1.6;margin-bottom:24px}
-    .proposal-modal .pill{display:inline-block;background:#FEE440;color:#111;font-size:11px;font-weight:700;letter-spacing:.1em;padding:4px 12px;border-radius:30px;margin-bottom:20px}
-    .proposal-modal .close-btn{background:#FEE440;color:#111;border:none;cursor:pointer;font-weight:800;font-size:14px;padding:11px 28px;border-radius:30px;transition:.18s}
-    .proposal-modal .close-btn:hover{background:#fff}
+    .proposal-modal{background:#fffdf7;color:#1E1A14;border-radius:4px;border-top:5px solid #F25F5C;padding:40px 44px;max-width:480px;width:100%;text-align:left;position:relative;box-shadow:0 30px 90px rgba(0,0,0,.4)}
+    .proposal-modal h2{font-size:26px;font-weight:800;line-height:1.15;margin-bottom:10px;color:#1E1A14;font-family:Georgia,'Times New Roman',serif}
+    .proposal-modal p{font-size:14px;color:#55503f;line-height:1.65;margin-bottom:24px}
+    .proposal-modal .pill{display:inline-block;background:#1E1A14;color:#FEE440;font-size:10px;font-weight:700;letter-spacing:.18em;padding:5px 12px;border-radius:2px;margin-bottom:16px}
+    .proposal-modal .close-btn{background:#F25F5C;color:#fff;border:none;cursor:pointer;font-weight:800;font-size:14px;padding:12px 30px;border-radius:2px;transition:.18s}
+    .proposal-modal .close-btn:hover{background:#1E1A14}
+    .proposal-modal .lead{margin-bottom:16px}
+    .proposal-modal .guide-title{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#F25F5C;text-align:left;margin-bottom:10px}
+    .proposal-modal .guide{text-align:left;margin:0 0 26px;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
+    .proposal-modal .guide li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:#4a4534;line-height:1.5}
+    .proposal-modal .guide .ic{flex:none;font-size:15px}
+    .proposal-modal .guide b{color:#1E1A14;font-weight:700}
   </style>
 </head>
 <body>
+
+<!-- VOLVER AL ÍNDICE -->
+<a href="index.html" title="Volver al índice de propuestas" style="position:fixed;bottom:18px;left:18px;z-index:2900;display:inline-flex;align-items:center;gap:7px;background:#9B5DE5;color:#fff;text-decoration:none;font:700 13.5px/1 -apple-system,'Segoe UI',Roboto,sans-serif;padding:11px 18px;border-radius:30px;box-shadow:0 6px 18px rgba(155,93,229,.5);transition:transform .15s,background .15s" onmouseover="this.style.transform='translateY(-2px)';this.style.background='#7a45c7'" onmouseout="this.style.transform='none';this.style.background='#9B5DE5'">← Volver al índice de propuestas</a>
 
 <!-- PROPOSAL MODAL -->
 <div class="proposal-overlay" id="proposalOverlay">
   <div class="proposal-modal">
     <div class="pill">PROTOTIPO</div>
-    <h2>Propuesta E</h2>
-    <p>Editorial<br>Esta es una propuesta de rediseño para Bordalíquido.<br>Explora libremente y cierra esta ventana para verla.</p>
+    <h2>Propuesta E · Editorial</h2>
+    <p class="lead">Como en una buena <b>revista</b>, aquí el contenido es el protagonista. Es un mockup; esto es lo más especial que tienes que ver:</p>
+    <div class="guide-title">Lo imperdible</div>
+    <ul class="guide">
+      <li><span class="ic">⭐</span><span>En <b>Proyectos</b>, haz <b>clic en uno</b>: se abre su <b>"receta comprable"</b> con los materiales que puedes sumar al carrito de un clic.</span></li>
+      <li><span class="ic">✨</span><span>Mira el bloque <b>split feature</b> y el botón con efecto de <b>pulso</b>.</span></li>
+      <li><span class="ic">🔍</span><span>Amplía las <b>imágenes</b> con clic para apreciar el estilo editorial.</span></li>
+    </ul>
     <button class="close-btn" onclick="document.getElementById('proposalOverlay').style.display='none'">Explorar propuesta →</button>
   </div>
 </div>
@@ -266,7 +384,7 @@
     <a href="#">Nosotros</a>
   </div>
   <div class="nav-right">
-    <a href="#" class="nav-wsp">💬 WhatsApp</a>
+    <a href="#" class="nav-wsp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="vertical-align:middle;margin-right:5px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
     <a href="#" class="nav-cta">Ver catálogo</a>
   </div>
 </nav>
@@ -282,13 +400,12 @@
     <p>Somos productores de pinturas para manualidades de alta calidad. Más de 150 referencias para tela, madera, escarchas, pegantes y más.</p>
     <div class="hero-btns">
       <a href="#" class="btn-ink">Explorar catálogo</a>
-      <a href="#" class="btn-text">Ver proyectos →</a>
+      <a href="#" class="btn-text">Ver proyectos</a>
     </div>
   </div>
   <div class="hero-right">
     <div class="hero-img-main">
-      <img src="assets/img/projects/macaw.png" alt="Guacamaya" onerror="this.remove()">
-      🦜
+      <img src="assets/img/projects/macaw.png" alt="Guacamaya" onerror="this.style.display='none'">
     </div>
     <div class="hero-caption">Guacamaya — Proyecto en tela · Pintura textil Bordalíquido</div>
     <div class="hero-stats">
@@ -306,31 +423,31 @@
   </div>
   <div class="cats-grid">
     <a href="#" class="cat-tile">
-      <div class="cat-tile-img"><img src="assets/img/products/fabric-paint.png" alt="" onerror="this.remove()">🧵</div>
+      <div class="cat-tile-img"><img src="assets/img/products/fabric-paint.png" alt="" onerror="this.style.display='none'"></div>
       <h3>Pintura Textil</h3>
       <span class="cat-tile-muted">Para tela y tejidos</span>
       <span class="cat-tile-arrow">↗</span>
     </a>
     <a href="#" class="cat-tile">
-      <div class="cat-tile-img"><img src="assets/img/products/background-paint.png" alt="" onerror="this.remove()">🪵</div>
+      <div class="cat-tile-img"><img src="assets/img/products/background-paint.png" alt="" onerror="this.style.display='none'"></div>
       <h3>Pintura para Madera</h3>
       <span class="cat-tile-muted">MDF y superficies</span>
       <span class="cat-tile-arrow">↗</span>
     </a>
     <a href="#" class="cat-tile">
-      <div class="cat-tile-img"><img src="assets/img/products/glitter.png" alt="" onerror="this.remove()">✨</div>
+      <div class="cat-tile-img"><img src="assets/img/products/glitter.png" alt="" onerror="this.style.display='none'"></div>
       <h3>Escarchas</h3>
       <span class="cat-tile-muted">Brillos y detalles</span>
       <span class="cat-tile-arrow">↗</span>
     </a>
     <a href="#" class="cat-tile">
-      <div class="cat-tile-img"><img src="assets/img/products/adhesives.png" alt="" onerror="this.remove()">🧴</div>
+      <div class="cat-tile-img"><img src="assets/img/products/adhesives.png" alt="" onerror="this.style.display='none'"></div>
       <h3>Pegantes</h3>
       <span class="cat-tile-muted">Alta adhesión</span>
       <span class="cat-tile-arrow">↗</span>
     </a>
     <a href="#" class="cat-tile">
-      <div class="cat-tile-img"><img src="assets/img/projects/butterfly.png" alt="" onerror="this.remove()">🦋</div>
+      <div class="cat-tile-img"><img src="assets/img/projects/butterfly.png" alt="" onerror="this.style.display='none'"></div>
       <h3>Proyectos en Tela</h3>
       <span class="cat-tile-muted">Listos para trabajar</span>
       <span class="cat-tile-arrow">↗</span>
@@ -342,7 +459,6 @@
 <section class="feature-section">
   <div class="feature-img">
     <img src="assets/img/products/background-paint.png" alt="Pinturas" onerror="this.remove()">
-    🎨
   </div>
   <div class="feature-text">
     <div class="feature-tag">Lo que nos diferencia</div>
@@ -404,29 +520,25 @@
     <h2>Galería de <em>proyectos</em></h2>
     <a href="#">Ver toda la galería →</a>
   </div>
-  <div class="proj-masonry">
-    <div class="proj-item tall">
-      <div class="proj-img" style="min-height:500px;"><img src="assets/img/projects/macaw.png" alt="" onerror="this.remove()">🦜</div>
-      <div class="proj-body"><h4>Guacamaya en tela</h4><p>Pintura textil + escarcha</p></div>
-    </div>
-    <div class="proj-item">
-      <div class="proj-img"><img src="assets/img/projects/owl.png" alt="" onerror="this.remove()">🦉</div>
-      <div class="proj-body"><h4>Búho decorativo</h4><p>Pintura textil múltiple</p></div>
-    </div>
-    <div class="proj-item">
-      <div class="proj-img"><img src="assets/img/projects/hummingbird.png" alt="" onerror="this.remove()">🐦</div>
-      <div class="proj-body"><h4>Colibrí en tela</h4><p>Pintura textil + bordeador</p></div>
-    </div>
-    <div class="proj-item">
-      <div class="proj-img"><img src="assets/img/projects/elephant.png" alt="" onerror="this.remove()">🐘</div>
-      <div class="proj-body"><h4>Elefante en tela</h4><p>Pintura textil</p></div>
-    </div>
-    <div class="proj-item">
-      <div class="proj-img"><img src="assets/img/projects/butterfly.png" alt="" onerror="this.remove()">🦋</div>
-      <div class="proj-body"><h4>Mariposa</h4><p>Pintura textil</p></div>
-    </div>
+  <p class="proj-lead">Cada proyecto es una <b>receta</b>: te mostramos qué pinturas usamos y dónde. ¿Te enamoraste de alguno? <b>Consigue el look completo</b> y suma todos los materiales a tu carrito en un clic.</p>
+  <div class="proj-filters" id="projFilters">
+    <span class="flab">Filtra por</span>
+    <button class="pf-chip on" data-f="todos">Todos</button>
+    <button class="pf-chip" data-f="Tela">Tela / Paño Lency</button>
+    <button class="pf-chip" data-f="MDF">Madera / MDF</button>
+    <button class="pf-chip" data-f="Navidad">Navidad</button>
   </div>
+  <div class="proj-masonry" id="projMasonry"></div>
 </section>
+
+<!-- MODAL RECETA COMPRABLE -->
+<div class="recipe-modal" id="recipeModal">
+  <div class="recipe-ov" data-rclose></div>
+  <div class="recipe-sheet">
+    <button class="rc-close" data-rclose>✕</button>
+    <div class="recipe-grid" id="recipeGrid"></div>
+  </div>
+</div>
 
 <!-- HISTORIA -->
 <section class="story-section">
@@ -437,11 +549,11 @@
   <div class="story-grid">
     <div class="story-nums">
       <div class="story-num-item">
-        <div class="story-big-num"><em>25</em>+</div>
+        <div class="story-big-num">+<em>25</em></div>
         <div class="story-num-label">Años de experiencia</div>
       </div>
       <div class="story-num-item">
-        <div class="story-big-num"><em>150</em>+</div>
+        <div class="story-big-num">+<em>150</em></div>
         <div class="story-num-label">Referencias</div>
       </div>
       <div class="story-num-item">
@@ -465,12 +577,12 @@
 <!-- CTA -->
 <section class="cta-section">
   <div class="cta-text">
-    <h2>¿Lista para tu próximo<br><em>proyecto?</em></h2>
+    <h2>¿Ya tienes en mente tu<br><em>próximo proyecto?</em></h2>
     <p>Explora nuestro catálogo completo o escríbenos por WhatsApp.</p>
   </div>
   <div class="cta-btns">
     <a href="#" class="btn-cta-dark">Ver catálogo</a>
-    <a href="#" class="btn-cta-wsp">💬 WhatsApp</a>
+    <a href="#" class="btn-cta-wsp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="18" height="18" style="vertical-align:middle;margin-right:7px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
   </div>
 </section>
 
@@ -583,6 +695,187 @@
     var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='none';io.unobserve(e.target);}});},{threshold:0.1});
     secs.forEach(function(s){io.observe(s);});
   }
+})();
+</script>
+
+<script>
+/* ===== Galería de proyectos comprable — Propuesta E ===== */
+(function(){
+  'use strict';
+  var F = "assets/img/frascos/";
+  var M = {
+    amarillo_sol:{mn:"Amarillo Sol", mf:"Pintura textil · 60cc", pr:8500, img:F+"plana/amarillo_sol.png", c:"#FEE440"},
+    azul_celeste:{mn:"Azul Celeste", mf:"Pintura textil · 60cc", pr:8500, img:F+"plana/azul_celeste.png", c:"#00BBF9"},
+    rojo_primario:{mn:"Rojo Primario", mf:"Pintura textil · 60cc", pr:8500, img:F+"plana/rojo_primario.png", c:"#E2231A"},
+    verde_lima:{mn:"Verde Lima", mf:"Pintura textil · 60cc", pr:8500, img:F+"plana/verde_lima.png", c:"#A6CE39"},
+    cafe:{mn:"Café", mf:"Pintura textil · 60cc", pr:8500, img:F+"plana/cafe.png", c:"#5A3A24"},
+    mostaza:{mn:"Mostaza", mf:"Pintura textil · 60cc", pr:8500, img:F+"plana/mostaza.png", c:"#D6A419"},
+    marfil:{mn:"Marfil", mf:"Pintura textil · 60cc", pr:8500, img:F+"plana/marfil.png", c:"#F3EAD3"},
+    turquesa_claro:{mn:"Turquesa Claro", mf:"Pintura textil · 60cc", pr:8500, img:F+"plana/turquesa_claro.png", c:"#3FC7E0"},
+    magenta:{mn:"Magenta", mf:"Pintura textil · 60cc", pr:8500, img:F+"plana/magenta.png", c:"#C2185B"},
+    gris:{mn:"Gris", mf:"Pintura textil · 60cc", pr:8500, img:F+"plana/gris.png", c:"#9E9E9E"},
+    rosa_ensueno:{mn:"Rosa Ensueño", mf:"Pintura textil · 60cc", pr:8500, img:F+"plana/rosa_ensueno.png", c:"#F7B7C3"},
+    lila:{mn:"Lila", mf:"Pintura textil · 60cc", pr:8500, img:F+"plana/lila.png", c:"#9B5DE5"},
+    verde_navidad:{mn:"Verde Navidad", mf:"Pintura textil · 60cc", pr:8500, img:F+"plana/verde_navidad.png", c:"#1B5E20"},
+    rojo_navidad:{mn:"Rojo Navidad", mf:"Pintura textil · 60cc", pr:8500, img:F+"plana/rojo_navidad.png", c:"#B71C1C"},
+    dorado:{mn:"Dorado", mf:"Acabado satín · 60cc", pr:11900, img:F+"satin/dorado.png", c:"#C9A227"}
+  };
+  var P = [
+    {n:"Nº 01", img:"assets/img/projects/macaw.png", emoji:"🦜", title:"Guacamaya en tela", cat:"Proyecto en tela", catKey:"Tela", feat:true,
+     level:"Avanzado", time:"4 h", inc:"Lienzo + bastidor",
+     desc:"Nuestra pieza estrella: una guacamaya a todo color sobre tela. El proyecto ideal para dominar mezclas y degradados.",
+     mats:["amarillo_sol","azul_celeste","rojo_primario","verde_lima"],
+     hot:[{x:46,y:30},{x:32,y:55},{x:64,y:48},{x:50,y:72}]},
+    {n:"Nº 02", img:"assets/img/projects/owl.png", emoji:"🦉", title:"Búho decorativo", cat:"Proyecto en tela", catKey:"Tela", feat:false,
+     level:"Intermedio", time:"3 h", inc:"Lienzo transferido",
+     desc:"Un búho cálido en tonos tierra. Perfecto para practicar texturas de plumas con pincel seco.",
+     mats:["cafe","mostaza","marfil","amarillo_sol"],
+     hot:[{x:40,y:38},{x:60,y:42},{x:50,y:64}]},
+    {n:"Nº 03", img:"assets/img/projects/hummingbird.png", emoji:"🐦", title:"Colibrí en tela", cat:"Proyecto en tela", catKey:"Tela", feat:false,
+     level:"Intermedio", time:"2.5 h", inc:"Lienzo + bordeador",
+     desc:"Un colibrí vibrante con detalle de bordeador. Brilla con verdes y turquesas.",
+     mats:["turquesa_claro","verde_lima","magenta"],
+     hot:[{x:38,y:40},{x:58,y:50},{x:48,y:66}]},
+    {n:"Nº 04", img:"assets/img/projects/elephant.png", emoji:"🐘", title:"Elefante en tela", cat:"Proyecto en tela", catKey:"Tela", feat:false,
+     level:"Principiante", time:"2 h", inc:"Lienzo transferido",
+     desc:"Un elefante tierno en grises y pasteles. Ideal para empezar en pintura textil.",
+     mats:["gris","azul_celeste","rosa_ensueno"],
+     hot:[{x:45,y:45},{x:62,y:55}]},
+    {n:"Nº 05", img:"assets/img/projects/butterfly.png", emoji:"🦋", title:"Mariposa multicolor", cat:"Proyecto en tela", catKey:"Tela", feat:false,
+     level:"Principiante", time:"1.5 h", inc:"Lienzo pequeño",
+     desc:"Una mariposa de alas vivas. El proyecto más rápido para estrenar tus pinturas.",
+     mats:["magenta","lila","amarillo_sol","turquesa_claro"],
+     hot:[{x:35,y:42},{x:62,y:42},{x:48,y:62}]},
+    {n:"Nº 06", img:"assets/img/projects/christmas-ball-reindeer.png", emoji:"🎄", title:"Esfera Navideña Reno", cat:"Navidad", catKey:"Navidad", feat:false,
+     level:"Intermedio", time:"3 h", inc:"Esfera MDF + base",
+     desc:"Esfera navideña con reno y acabado dorado. Una pieza que se vende sola en temporada.",
+     mats:["verde_navidad","rojo_navidad","dorado","marfil"],
+     hot:[{x:35,y:45},{x:60,y:40},{x:48,y:66}]},
+    {n:"Nº 07", img:"assets/img/projects/cabin.png", emoji:"🏡", title:"Cabaña Decorativa en MDF", cat:"Madera / MDF", catKey:"MDF", feat:false,
+     level:"Principiante", time:"1.5 h", inc:"1 casita MDF",
+     desc:"Una cabaña en MDF lista para pintar, con toques metálicos. Perfecta para estrenar técnicas de madera.",
+     mats:["cafe","verde_lima","marfil","dorado"],
+     hot:[{x:38,y:48},{x:60,y:42},{x:50,y:66}]}
+  ];
+
+  var money = function(n){ return "$"+n.toLocaleString("es-CO"); };
+  var masonry = document.getElementById('projMasonry');
+
+  function jarsHTML(mats, n){
+    return mats.slice(0,n).map(function(k){
+      return '<img src="'+M[k].img+'" alt="'+M[k].mn+'" loading="lazy" onerror="this.style.display=\'none\'">';
+    }).join("");
+  }
+
+  function render(filter){
+    var list = P.filter(function(p){ return filter==="todos" || p.catKey===filter; });
+    masonry.innerHTML = list.map(function(p){
+      var idx = P.indexOf(p);
+      var imgTag = p.img ? '<img src="'+p.img+'" alt="'+p.title+'" onerror="this.remove()">' : '<span style="font-size:60px">'+p.emoji+'</span>';
+      var hint = p.img ? '' : '<span class="phint">↳ aquí va la foto real del proyecto</span>';
+      return '<article class="proj-item'+(p.feat?' feat':'')+'" data-i="'+idx+'">'
+        + '<div class="proj-img">'+imgTag
+        +   '<span class="pnum">'+p.n+'</span>'
+        +   '<span class="pbadge">'+p.level+' · '+p.time+'</span>'
+        +   '<div class="pjars">'+jarsHTML(p.mats, p.feat?4:3)+'</div>'
+        +   hint
+        + '</div>'
+        + '<div class="proj-body">'
+        +   '<span class="proj-cat">'+p.cat+'</span>'
+        +   '<h4>'+p.title+'</h4>'
+        +   '<div class="proj-row"><span>🎨 '+p.mats.length+' pinturas</span><span>📦 '+p.inc+'</span></div>'
+        +   '<span class="proj-shop">Consigue este look</span>'
+        + '</div>'
+        + '</article>';
+    }).join("");
+    Array.prototype.forEach.call(masonry.querySelectorAll('.proj-item'), function(c){
+      c.addEventListener('click', function(){ openRecipe(+c.dataset.i); });
+    });
+  }
+
+  /* ----- Modal ----- */
+  var modal = document.getElementById('recipeModal');
+  var rgrid = document.getElementById('recipeGrid');
+
+  function openRecipe(i){
+    var p = P[i];
+    var total = p.mats.reduce(function(s,k){ return s+M[k].pr; }, 0);
+    var imgBg = p.img ? '<img src="'+p.img+'" alt="'+p.title+'" onerror="this.remove()">' : '<span style="font-size:90px;position:relative;z-index:1">'+p.emoji+'</span>';
+    var hots = p.hot.map(function(h,idx){
+      var mk = p.mats[idx] || p.mats[0];
+      return '<div class="rc-hot" style="left:'+h.x+'%;top:'+h.y+'%" data-tip="'+M[mk].mn+'">'+(idx+1)+'</div>';
+    }).join("");
+    var mats = p.mats.map(function(k){
+      var m = M[k];
+      return '<div class="rc-mat">'
+        + '<div class="rsw"><img src="'+m.img+'" alt="" onerror="this.parentNode.style.background=\''+m.c+'\';this.remove()"></div>'
+        + '<div class="rinfo"><div class="rn">'+m.mn+'</div><div class="rf">'+m.mf+'</div></div>'
+        + '<div class="rpr">'+money(m.pr)+'</div>'
+        + '<button class="radd" data-add="'+m.mn+'" title="Agregar">+</button>'
+        + '</div>';
+    }).join("");
+    rgrid.innerHTML =
+      '<div class="rc-photo">'+imgBg
+      + '<span class="rnum">'+p.n+'</span>'
+      + (p.img ? '' : '<div class="rc-jars">'+jarsHTML(p.mats,4)+'</div>')
+      + hots
+      + '</div>'
+      + '<div class="rc-body">'
+      +   '<span class="rc-cat">'+p.cat+'</span>'
+      +   '<h3 class="rc-title">'+p.title+'</h3>'
+      +   '<p class="rc-desc">'+p.desc+'</p>'
+      +   '<div class="rc-stats">'
+      +     '<div><b>Nivel</b><span>'+p.level+'</span></div>'
+      +     '<div><b>Tiempo</b><span>'+p.time+'</span></div>'
+      +     '<div><b>Incluye</b><span>'+p.inc+'</span></div>'
+      +   '</div>'
+      +   '<div class="rc-math"><h5>Materiales del proyecto</h5><span class="look">consigue este look ↓</span></div>'
+      +   mats
+      +   '<div class="rc-kit">'
+      +     '<div><div class="kl">Kit completo · '+p.mats.length+' pinturas</div><div class="kv">'+money(total)+'</div></div>'
+      +     '<div class="kbtns">'
+      +       '<button class="kghost" data-addall=\''+JSON.stringify(p.mats)+'\'>Agregar el kit completo</button>'
+      +     '</div>'
+      +   '</div>'
+      + '</div>';
+
+    Array.prototype.forEach.call(rgrid.querySelectorAll('.radd'), function(b){
+      b.addEventListener('click', function(e){ e.stopPropagation(); addCart(1, b.dataset.add); });
+    });
+    var all = rgrid.querySelector('[data-addall]');
+    all.addEventListener('click', function(){ var arr=JSON.parse(all.dataset.addall); addCart(arr.length, "el kit completo de "+p.title); });
+    Array.prototype.forEach.call(rgrid.querySelectorAll('.rc-hot'), function(h){
+      h.addEventListener('click', function(){ toast("Aquí va: "+h.dataset.tip); });
+    });
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeRecipe(){ modal.classList.remove('open'); document.body.style.overflow=''; }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-rclose]'), function(el){ el.addEventListener('click', closeRecipe); });
+  document.addEventListener('keydown', function(e){ if(e.key==="Escape") closeRecipe(); });
+
+  /* ----- Carrito + toast (estilo coral, igual a la propuesta) ----- */
+  var cart = 0, tw, tt;
+  function toast(msg){
+    if(!tw){ tw=document.createElement('div'); tw.style.cssText='position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:99999;'; document.body.appendChild(tw); }
+    var t=document.createElement('div');
+    t.innerHTML=msg;
+    t.style.cssText='background:#F25F5C;color:#fff;font-family:Poppins,sans-serif;font-size:14px;font-weight:600;padding:12px 22px;border-radius:2px;box-shadow:0 6px 24px rgba(0,0,0,0.25);opacity:0;transform:translateY(10px);transition:opacity .25s,transform .25s;';
+    tw.innerHTML=''; tw.appendChild(t);
+    requestAnimationFrame(function(){ t.style.opacity='1'; t.style.transform='translateY(0)'; });
+    clearTimeout(tt); tt=setTimeout(function(){ t.style.opacity='0'; t.style.transform='translateY(10px)'; }, 2400);
+  }
+  function addCart(q, label){ cart+=q; toast('✓ Agregado: <b>'+label+'</b> &nbsp;·&nbsp; carrito ('+cart+')'); }
+
+  /* ----- Filtros ----- */
+  Array.prototype.forEach.call(document.querySelectorAll('#projFilters .pf-chip'), function(ch){
+    ch.addEventListener('click', function(){
+      Array.prototype.forEach.call(document.querySelectorAll('#projFilters .pf-chip'), function(c){ c.classList.remove('on'); });
+      ch.classList.add('on'); render(ch.dataset.f);
+    });
+  });
+
+  render("todos");
 })();
 </script>
 

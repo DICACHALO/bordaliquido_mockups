@@ -27,9 +27,15 @@
     .nav-links a:hover { color: #F25F5C; }
     .nav-right { display: flex; gap: 14px; align-items: center; }
     .nav-wsp {
-      display: flex; align-items: center; gap: 6px;
-      font-size: 14px; font-weight: 600; color: #2a1f14;
+      background: #25D366;
+      color: #fff;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
       text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .nav-cta {
       background: #F25F5C;
@@ -105,29 +111,83 @@
       border-radius: 30px;
     }
     .btn-outline:hover { background: #2a1f14; color: #F5E6CA; }
-    .hero-img {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto auto;
-      gap: 12px;
+    .hero-right { display: flex; flex-direction: column; gap: 14px; }
+    .color-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 18px 20px 16px;
+      box-shadow: 0 4px 24px rgba(42,31,20,0.08);
     }
-    .hero-img-big {
-      grid-column: 1 / 3;
-      height: 260px;
+    .color-card-header { margin-bottom: 12px; }
+    .color-tag {
+      display: inline-block;
+      background: #F25F5C;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 3px 10px;
       border-radius: 20px;
-      overflow: hidden;
-      background: #e8d5b0;
-      display: flex; align-items: center; justify-content: center; font-size: 60px;
+      margin-bottom: 6px;
     }
-    .hero-img-big img { width:100%; height:100%; object-fit:cover; }
-    .hero-img-sm {
-      height: 140px;
-      border-radius: 16px;
-      overflow: hidden;
-      background: #e8d5b0;
-      display: flex; align-items: center; justify-content: center; font-size: 36px;
+    .color-script {
+      display: block;
+      font-family: 'Dancing Script', cursive;
+      font-size: 24px;
+      font-weight: 700;
+      color: #2a1f14;
     }
-    .hero-img-sm img { width:100%; height:100%; object-fit:cover; }
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .swatch {
+      aspect-ratio: 1;
+      border-radius: 50%;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+      position: relative;
+      cursor: default;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .swatch:hover { transform: scale(1.18); box-shadow: 0 4px 12px rgba(0,0,0,0.22); z-index: 10; }
+    .swatch::after {
+      content: attr(data-name);
+      position: absolute;
+      bottom: calc(100% + 7px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #2a1f14;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+      padding: 5px 10px;
+      border-radius: 8px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease;
+    }
+    .swatch:hover::after { opacity: 1; }
+    .swatch-label { font-size: 12px; color: #aaa; font-weight: 500; }
+    .hero-mini-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .mini-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 4px 20px rgba(42,31,20,0.07);
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    .mini-num {
+      font-size: 26px;
+      font-weight: 800;
+      color: #F25F5C;
+      line-height: 1;
+    }
+    .mini-label { font-size: 11px; color: #888; line-height: 1.4; margin-top: 3px; }
     .hero-trust {
       display: flex;
       gap: 24px;
@@ -186,7 +246,7 @@
       background: #F5E6CA;
       display: flex; align-items: center; justify-content: center; font-size: 36px;
     }
-    .story-img-sm img { width:100%; height:100%; object-fit:cover; }
+    .story-img-sm img { width:100%; height:100%; object-fit:contain; padding: 12px; }
 
     /* CATEGORÍAS */
     .cats-section { padding: 70px 60px; }
@@ -270,7 +330,7 @@
     .projects-section { padding: 70px 60px; background: #F5E6CA; }
     .proj-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 16px;
       margin-top: 36px;
     }
@@ -280,13 +340,12 @@
       background: #fff;
     }
     .proj-img {
-      height: 220px;
+      aspect-ratio: 1;
       overflow: hidden;
       background: #e8d5b0;
       display: flex; align-items: center; justify-content: center;
-      font-size: 50px;
     }
-    .proj-img img { width:100%; height:100%; object-fit:cover; }
+    .proj-img img { width:100%; height:100%; object-fit:contain; padding: 16px; }
     .proj-body { padding: 18px; }
     .proj-tag {
       display: inline-block;
@@ -384,22 +443,37 @@
     /* BADGE */
     .proposal-badge{display:none}
     .proposal-overlay{position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px}
-    .proposal-modal{background:#111;color:#FEE440;border-radius:18px;padding:36px 40px;max-width:460px;width:100%;text-align:center;position:relative;box-shadow:0 24px 64px rgba(0,0,0,.45)}
-    .proposal-modal h2{font-size:22px;font-weight:800;letter-spacing:.04em;margin-bottom:8px}
-    .proposal-modal p{font-size:14px;color:#e8d88a;line-height:1.6;margin-bottom:24px}
-    .proposal-modal .pill{display:inline-block;background:#FEE440;color:#111;font-size:11px;font-weight:700;letter-spacing:.1em;padding:4px 12px;border-radius:30px;margin-bottom:20px}
-    .proposal-modal .close-btn{background:#FEE440;color:#111;border:none;cursor:pointer;font-weight:800;font-size:14px;padding:11px 28px;border-radius:30px;transition:.18s}
-    .proposal-modal .close-btn:hover{background:#fff}
+    .proposal-modal{background:#FBF3E4;color:#2a1f14;border-radius:20px;padding:38px 42px;max-width:460px;width:100%;text-align:center;position:relative;box-shadow:0 24px 64px rgba(80,40,20,.35);border:1px solid rgba(242,95,92,.25)}
+    .proposal-modal h2{font-size:23px;font-weight:800;margin-bottom:8px;color:#2a1f14}
+    .proposal-modal p{font-size:14px;color:#6b5644;line-height:1.6;margin-bottom:24px}
+    .proposal-modal .pill{display:inline-block;background:#F25F5C;color:#fff;font-size:11px;font-weight:700;letter-spacing:.1em;padding:5px 14px;border-radius:30px;margin-bottom:18px}
+    .proposal-modal .close-btn{background:#F25F5C;color:#fff;border:none;cursor:pointer;font-weight:800;font-size:14px;padding:12px 30px;border-radius:30px;transition:.18s}
+    .proposal-modal .close-btn:hover{background:#d94845}
+    .proposal-modal .lead{margin-bottom:16px}
+    .proposal-modal .guide-title{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#F25F5C;text-align:left;margin-bottom:10px}
+    .proposal-modal .guide{text-align:left;margin:0 0 26px;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+    .proposal-modal .guide li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:#5a4636;line-height:1.45}
+    .proposal-modal .guide .ic{flex:none;font-size:15px}
+    .proposal-modal .guide b{color:#2a1f14;font-weight:700}
   </style>
 </head>
 <body>
+
+<!-- VOLVER AL ÍNDICE -->
+<a href="index.html" title="Volver al índice de propuestas" style="position:fixed;bottom:18px;left:18px;z-index:2900;display:inline-flex;align-items:center;gap:7px;background:#9B5DE5;color:#fff;text-decoration:none;font:700 13.5px/1 -apple-system,'Segoe UI',Roboto,sans-serif;padding:11px 18px;border-radius:30px;box-shadow:0 6px 18px rgba(155,93,229,.5);transition:transform .15s,background .15s" onmouseover="this.style.transform='translateY(-2px)';this.style.background='#7a45c7'" onmouseout="this.style.transform='none';this.style.background='#9B5DE5'">← Volver al índice de propuestas</a>
 
 <!-- PROPOSAL MODAL -->
 <div class="proposal-overlay" id="proposalOverlay">
   <div class="proposal-modal">
     <div class="pill">PROTOTIPO</div>
-    <h2>Propuesta C</h2>
-    <p>Cálida y Creativa<br>Esta es una propuesta de rediseño para Bordalíquido.<br>Explora libremente y cierra esta ventana para verla.</p>
+    <h2>Propuesta C · Cálida y Creativa</h2>
+    <p class="lead">Respira: esta propuesta apuesta por la <b>calidez y lo artesanal</b>. Es un mockup, así que detente un momento en:</p>
+    <div class="guide-title">Tómate tu tiempo en</div>
+    <ul class="guide">
+      <li><span class="ic">📖</span><span>Recorre la sección <b>"Nuestra historia"</b> y la de capacitación: marcan el tono cercano y artesanal.</span></li>
+      <li><span class="ic">✨</span><span>Pasa el cursor por <b>categorías y productos</b> para ver las transiciones cálidas.</span></li>
+      <li><span class="ic">🔍</span><span>Haz <b>clic en las imágenes</b> para ampliarlas y prueba el botón <b>"Agregar"</b>.</span></li>
+    </ul>
     <button class="close-btn" onclick="document.getElementById('proposalOverlay').style.display='none'">Explorar propuesta →</button>
   </div>
 </div>
@@ -415,7 +489,7 @@
     <a href="#">Nosotros</a>
   </div>
   <div class="nav-right">
-    <a href="#" class="nav-wsp">💬 WhatsApp</a>
+    <a href="#" class="nav-wsp" title="WhatsApp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
     <a href="#" class="nav-cta">Ver catálogo</a>
   </div>
 </nav>
@@ -435,23 +509,48 @@
       <a href="#" class="btn-outline">Ver proyectos</a>
     </div>
     <div class="hero-trust">
-      <div class="trust-item"><span class="trust-icon">🌿</span> Sin tóxicos</div>
-      <div class="trust-item"><span class="trust-icon">🚚</span> Envíos a Colombia</div>
-      <div class="trust-item"><span class="trust-icon">🎓</span> Capacitación incluida</div>
+      <div class="trust-item"><span class="trust-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#52B788" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span> Sin tóxicos</div>
+      <div class="trust-item"><span class="trust-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#457B9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span> Envíos a Colombia</div>
+      <div class="trust-item"><span class="trust-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F25F5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span> Capacitación incluida</div>
     </div>
   </div>
-  <div class="hero-img">
-    <div class="hero-img-big">
-      <img src="assets/img/projects/macaw.png" alt="Guacamaya" onerror="this.remove()">
-      🦜
+  <div class="hero-right">
+    <div class="color-card">
+      <div class="color-card-header">
+        <span class="color-tag">Nueva temporada</span>
+        <span class="color-script">+150 referencias</span>
+      </div>
+      <div class="swatches">
+        <span class="swatch" style="background:#E63946" data-name="Rojo pasión"></span>
+        <span class="swatch" style="background:#F4A261" data-name="Naranja mandarina"></span>
+        <span class="swatch" style="background:#FFB703" data-name="Amarillo sol"></span>
+        <span class="swatch" style="background:#52B788" data-name="Verde esmeralda"></span>
+        <span class="swatch" style="background:#457B9D" data-name="Azul acero"></span>
+        <span class="swatch" style="background:#9B5DE5" data-name="Violeta uva"></span>
+        <span class="swatch" style="background:#FFC8DD" data-name="Rosa pétalo"></span>
+        <span class="swatch" style="background:#FFAFCC" data-name="Rosa chicle"></span>
+        <span class="swatch" style="background:#BDE0FE" data-name="Azul cielo"></span>
+        <span class="swatch" style="background:#A2D2FF" data-name="Azul bebé"></span>
+        <span class="swatch" style="background:#CDB4DB" data-name="Lila suave"></span>
+        <span class="swatch" style="background:#FFDDD2" data-name="Salmón claro"></span>
+        <span class="swatch" style="background:#774936" data-name="Café oscuro"></span>
+        <span class="swatch" style="background:#2D6A4F" data-name="Verde musgo"></span>
+        <span class="swatch" style="background:#1D3557" data-name="Azul noche"></span>
+        <span class="swatch" style="background:#6D6875" data-name="Gris malva"></span>
+        <span class="swatch" style="background:#e8d5b0" data-name="Crema arena"></span>
+        <span class="swatch" style="background:#2a1f14" data-name="Negro café"></span>
+      </div>
+      <p class="swatch-label">Acrílicos · Tela · Madera · Cuero · Metal</p>
     </div>
-    <div class="hero-img-sm">
-      <img src="assets/img/products/fabric-paint.png" alt="Pinturas" onerror="this.remove()">
-      🎨
-    </div>
-    <div class="hero-img-sm">
-      <img src="assets/img/projects/butterfly.png" alt="Mariposa" onerror="this.remove()">
-      🦋
+    <div class="hero-mini-cards">
+      <div class="mini-card">
+        <span class="mini-num">25+</span>
+        <span class="mini-label">Años creando contigo</span>
+      </div>
+      <div class="mini-card">
+        <span class="mini-num">11</span>
+        <span class="mini-label">Ciudades con distribuidores</span>
+      </div>
     </div>
   </div>
 </section>
@@ -465,21 +564,21 @@
     <p>Además de vender, enseñamos. Ofrecemos capacitación directa para docentes, almacenes distribuidores y cualquier persona que quiera aprender técnicas nuevas.</p>
     <div class="story-values">
       <div class="story-val">
-        <div class="story-val-icon">🌿</div>
+        <div class="story-val-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <div class="story-val-text">
           <h4>Fórmulas seguras</h4>
           <p>Sin solventes ni agentes tóxicos. Seguras para toda la familia.</p>
         </div>
       </div>
       <div class="story-val">
-        <div class="story-val-icon">❤️</div>
+        <div class="story-val-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#fff" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
         <div class="story-val-text">
           <h4>Responsabilidad social</h4>
           <p>Apoyamos programas de emprendimiento para madres cabeza de familia, adultos mayores y niños.</p>
         </div>
       </div>
       <div class="story-val">
-        <div class="story-val-icon">⭐</div>
+        <div class="story-val-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#fff" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
         <div class="story-val-text">
           <h4>Calidad garantizada</h4>
           <p>La calidad ha sido siempre nuestro valor innegociable desde el primer día.</p>
@@ -490,16 +589,13 @@
   <div class="story-img">
     <div class="story-img-main">
       <img src="assets/img/products/background-paint.png" alt="Pinturas" onerror="this.remove()">
-      🎨
     </div>
     <div class="story-img-row">
       <div class="story-img-sm">
         <img src="assets/img/products/liners.png" alt="Bordeadores" onerror="this.remove()">
-        🖌️
       </div>
       <div class="story-img-sm">
         <img src="assets/img/products/glitter.png" alt="Escarcha" onerror="this.remove()">
-        ✨
       </div>
     </div>
   </div>
@@ -511,27 +607,27 @@
   <h2 class="section-title">Todo lo que necesitas para crear</h2>
   <div class="cats-grid">
     <a href="#" class="cat-card">
-      <div class="cat-img"><img src="assets/img/products/fabric-paint.png" alt="Textil" onerror="this.remove()"><span>🧵</span></div>
+      <div class="cat-img"><img src="assets/img/products/fabric-paint.png" alt="Textil" onerror="this.remove()"></div>
       <div class="cat-body"><h3>Pintura Textil</h3><p>Para tela y tejidos</p><span class="cat-link">Ver colores →</span></div>
     </a>
     <a href="#" class="cat-card">
-      <div class="cat-img"><img src="assets/img/products/background-paint.png" alt="Madera" onerror="this.remove()"><span>🪵</span></div>
+      <div class="cat-img"><img src="assets/img/products/background-paint.png" alt="Madera" onerror="this.remove()"></div>
       <div class="cat-body"><h3>Pintura para Madera</h3><p>MDF y superficies</p><span class="cat-link">Ver colores →</span></div>
     </a>
     <a href="#" class="cat-card">
-      <div class="cat-img"><img src="assets/img/products/glitter.png" alt="Escarcha" onerror="this.remove()"><span>✨</span></div>
+      <div class="cat-img"><img src="assets/img/products/glitter.png" alt="Escarcha" onerror="this.remove()"></div>
       <div class="cat-body"><h3>Escarchas</h3><p>Brillos y detalles</p><span class="cat-link">Ver referencias →</span></div>
     </a>
     <a href="#" class="cat-card">
-      <div class="cat-img"><img src="assets/img/products/adhesives.png" alt="Pegantes" onerror="this.remove()"><span>🧴</span></div>
+      <div class="cat-img"><img src="assets/img/products/adhesives.png" alt="Pegantes" onerror="this.remove()"></div>
       <div class="cat-body"><h3>Pegantes</h3><p>Alta adhesión</p><span class="cat-link">Ver referencias →</span></div>
     </a>
     <a href="#" class="cat-card">
-      <div class="cat-img"><img src="assets/img/products/stencils.jpg" alt="Estenciles" onerror="this.remove()"><span>🎭</span></div>
+      <div class="cat-img"><img src="assets/img/products/stencils.jpg" alt="Estenciles" onerror="this.remove()"></div>
       <div class="cat-body"><h3>Estenciles</h3><p>Plantillas y moldes</p><span class="cat-link">Ver referencias →</span></div>
     </a>
     <a href="#" class="cat-card">
-      <div class="cat-img"><img src="assets/img/products/liners.png" alt="Complementos" onerror="this.remove()"><span>🖌️</span></div>
+      <div class="cat-img"><img src="assets/img/products/liners.png" alt="Complementos" onerror="this.remove()"></div>
       <div class="cat-body"><h3>Complementos</h3><p>Lacas y bordeadores</p><span class="cat-link">Ver referencias →</span></div>
     </a>
     <a href="#" class="cat-card">
@@ -543,7 +639,7 @@
       <div class="cat-body"><h3>Sublimación</h3><p>Láminas y transfer</p><span class="cat-link">Ver referencias →</span></div>
     </a>
     <a href="#" class="cat-card">
-      <div class="cat-img"><img src="assets/img/projects/butterfly.png" alt="Proyectos tela" onerror="this.remove()"><span>🦋</span></div>
+      <div class="cat-img"><img src="assets/img/projects/butterfly.png" alt="Proyectos tela" onerror="this.remove()"></div>
       <div class="cat-body"><h3>Proyectos en Tela</h3><p>Listos para trabajar</p><span class="cat-link">Ver proyectos →</span></div>
     </a>
     <a href="#" class="cat-card">
@@ -603,16 +699,20 @@
   <h2 class="section-title">Proyectos que inspiran</h2>
   <div class="proj-grid">
     <div class="proj-card">
-      <div class="proj-img"><img src="assets/img/projects/macaw.png" alt="Guacamaya" onerror="this.remove()">🦜</div>
+      <div class="proj-img"><img src="assets/img/projects/macaw.png" alt="Guacamaya" onerror="this.style.display='none'"></div>
       <div class="proj-body"><span class="proj-tag">Proyecto en Tela</span><h3>Guacamaya en tela</h3><p>Pintura textil + escarcha</p></div>
     </div>
     <div class="proj-card">
-      <div class="proj-img"><img src="assets/img/projects/owl.png" alt="Búho" onerror="this.remove()">🦉</div>
+      <div class="proj-img"><img src="assets/img/projects/owl.png" alt="Búho" onerror="this.style.display='none'"></div>
       <div class="proj-body"><span class="proj-tag">Proyecto en Tela</span><h3>Búho decorativo</h3><p>Pintura textil múltiple</p></div>
     </div>
     <div class="proj-card">
-      <div class="proj-img"><img src="assets/img/projects/hummingbird.png" alt="Colibrí" onerror="this.remove()">🐦</div>
+      <div class="proj-img"><img src="assets/img/projects/hummingbird.png" alt="Colibrí" onerror="this.style.display='none'"></div>
       <div class="proj-body"><span class="proj-tag">Proyecto en Tela</span><h3>Colibrí en tela</h3><p>Pintura textil + bordeador</p></div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-img"><img src="assets/img/projects/butterfly.png" alt="Mariposa" onerror="this.style.display='none'"></div>
+      <div class="proj-body"><span class="proj-tag">Proyecto en Tela</span><h3>Mariposa decorativa</h3><p>Pintura textil + bordeador dorado</p></div>
     </div>
   </div>
 </section>
@@ -627,21 +727,21 @@
   </div>
   <div class="training-items">
     <div class="training-item">
-      <div class="training-item-icon">👩‍🏫</div>
+      <div class="training-item-icon"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F7B7C3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
       <div>
         <h4>Talleres para docentes</h4>
         <p>Clases especializadas para profesores que enseñan manualidades a sus estudiantes.</p>
       </div>
     </div>
     <div class="training-item">
-      <div class="training-item-icon">🏪</div>
+      <div class="training-item-icon"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F7B7C3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
       <div>
         <h4>Capacitación para distribuidores</h4>
         <p>Formamos al equipo de nuestros almacenes aliados para que asesoren mejor a sus clientes.</p>
       </div>
     </div>
     <div class="training-item">
-      <div class="training-item-icon">💡</div>
+      <div class="training-item-icon"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F7B7C3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg></div>
       <div>
         <h4>Tutoriales y tips en línea</h4>
         <p>Contenido en nuestro blog e Instagram con técnicas paso a paso para todos los niveles.</p>
@@ -752,7 +852,7 @@
   document.querySelectorAll('.btn-outline').forEach(function(a){a.dataset.handled='1';a.addEventListener('click',function(e){e.preventDefault();scrollTo('.projects-section');});});
 
   /* --- WhatsApp feedback --- */
-  document.querySelectorAll('.nav-wsp').forEach(function(a){a.dataset.handled='1';a.addEventListener('click',function(e){e.preventDefault();toast('💬 Abriendo chat de WhatsApp...');});});
+  document.querySelectorAll('.nav-wsp').forEach(function(a){a.dataset.handled='1';a.addEventListener('click',function(e){e.preventDefault();toast('Abriendo chat de WhatsApp...');});});
 
   /* --- Categorías feedback --- */
   document.querySelectorAll('.cat-card').forEach(function(c){
