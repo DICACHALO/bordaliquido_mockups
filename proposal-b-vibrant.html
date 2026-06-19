@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bordalíquido — Propuesta B: Vibrante y Joven</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Poppins', sans-serif; background: #fff; color: #111; }
+
+    /* NAV */
+    nav {
+      background: #fff;
+      padding: 20px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    }
+    .logo img { height: 48px; display: block; }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a { font-size: 15px; color: #333; text-decoration: none; font-weight: 500; }
+    .nav-links a:hover { color: #9B5DE5; }
+    .nav-right { display: flex; gap: 12px; align-items: center; }
+    .nav-wsp {
+      background: #25D366;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 20px;
+      text-decoration: none;
+    }
+    .nav-cta {
+      background: #9B5DE5;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 22px;
+      border-radius: 20px;
+      text-decoration: none;
+    }
+    .nav-cta:hover { background: #7a45c7; }
+
+    /* HERO */
+    .hero {
+      background: #9B5DE5;
+      padding: 80px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      min-height: 540px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 500px; height: 500px;
+      background: #7a45c7;
+      border-radius: 50%;
+      opacity: 0.4;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: 200px;
+      width: 300px; height: 300px;
+      background: #F25F5C;
+      border-radius: 50%;
+      opacity: 0.15;
+    }
+    .hero-text { position: relative; z-index: 2; }
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+    .hero-pill span { width: 8px; height: 8px; background: #fff; border-radius: 50%; display: inline-block; }
+    .hero-text h1 {
+      font-size: 54px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+    .hero-text h1 em { font-style: normal; color: #F7B7C3; }
+    .hero-text p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 36px;
+      max-width: 420px;
+    }
+    .hero-btns { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+    .btn-hero-main {
+      background: #fff;
+      color: #9B5DE5;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 16px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-hero-main:hover { background: #f0e8ff; }
+    .btn-hero-sec {
+      color: #fff;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.5);
+      padding-bottom: 2px;
+    }
+    .hero-img-area {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 12px;
+      height: 380px;
+    }
+    .hero-img-main {
+      grid-row: 1 / 3;
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-img-main img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-img-sm {
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px;
+    }
+    .hero-img-sm img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-stat {
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 0;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    }
+    .stat-item {
+      padding: 16px 24px;
+      text-align: center;
+      border-right: 1px solid #f0f0f0;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-size: 22px; font-weight: 700; color: #9B5DE5; }
+    .stat-label { font-size: 12px; color: #777; margin-top: 2px; }
+
+    /* CATEGORÍAS - COLORIDAS */
+    .cats-section { padding: 80px 60px 60px; }
+    .cats-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 36px; }
+    .cats-header h2 { font-size: 34px; font-weight: 700; }
+    .cats-header h2 span { color: #9B5DE5; }
+    .cats-header a { color: #9B5DE5; font-weight: 600; font-size: 15px; text-decoration: none; }
+    .cats-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+    .cat-tile {
+      border-radius: 16px;
+      padding: 20px 16px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      font-size: 15px;
+      min-height: 130px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .cat-tile:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.15); }
+    .cat-tile .emoji { font-size: 32px; }
+    .cat-tile .arrow { font-size: 18px; opacity: 0.7; }
+    .cat-tile.c1 { background: #9B5DE5; }
+    .cat-tile.c2 { background: #00BBF9; color: #111; }
+    .cat-tile.c3 { background: #F25F5C; }
+    .cat-tile.c4 { background: #F25F5C; color: #fff; }
+    .cat-tile.c5 { background: #111; }
+    .cat-tile.c6 { background: #F7B7C3; color: #111; }
+    .cat-tile.c7 { background: #00BBF9; color: #111; }
+    .cat-tile.c8 { background: #9B5DE5; }
+    .cat-tile.c9 { background: #F7B7C3; color: #111; }
+    .cat-tile.c10 { background: #F25F5C; }
+
+    /* PRODUCTOS */
+    .prod-section { background: #f8f8f8; padding: 60px; }
+    .prod-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 36px; }
+    .prod-header h2 { font-size: 32px; font-weight: 700; }
+    .prod-header h2 span { color: #9B5DE5; }
+    .prod-filters { display: flex; gap: 10px; }
+    .filter-btn {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+    }
+    .filter-btn.active { background: #9B5DE5; color: #fff; border-color: #9B5DE5; }
+    .prod-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+    .prod-card {
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+    .prod-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
+    .prod-img {
+      height: 180px;
+      overflow: hidden;
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      background: #f0f0f0;
+    }
+    .prod-img img { width: 100%; height: 100%; object-fit: contain; padding: 8px; }
+    .prod-badge {
+      position: absolute;
+      top: 12px; left: 12px;
+      background: #9B5DE5;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+    .prod-body { padding: 16px; }
+    .prod-body h3 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .prod-body .meta { font-size: 12px; color: #888; margin-bottom: 10px; }
+    .prod-row { display: flex; align-items: center; justify-content: space-between; }
+    .prod-price { font-size: 18px; font-weight: 700; color: #111; }
+    .btn-add {
+      background: #9B5DE5;
+      color: #fff;
+      border: none;
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .btn-add:hover { background: #7a45c7; }
+
+    /* BANNER DIY */
+    .diy-banner {
+      background: #7a45c7;
+      padding: 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .diy-text h2 { font-size: 38px; font-weight: 800; line-height: 1.15; color: #fff; margin-bottom: 16px; }
+    .diy-text h2 em { font-style: normal; color: #F7B7C3; }
+    .diy-text p { font-size: 16px; color: rgba(255,255,255,0.75); line-height: 1.7; margin-bottom: 28px; }
+    .btn-diy {
+      background: #fff;
+      color: #9B5DE5;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 16px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-diy:hover { background: #f0e8ff; }
+    .diy-imgs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .diy-img {
+      border-radius: 12px;
+      overflow: hidden;
+      height: 160px;
+      background: rgba(0,0,0,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 40px;
+    }
+    .diy-img img { width: 100%; height: 100%; object-fit: cover; }
+    .diy-img:first-child { grid-row: 1 / 3; height: auto; }
+
+    /* PROYECTOS */
+    .projects-section { padding: 60px; }
+    .projects-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; }
+    .projects-header h2 { font-size: 32px; font-weight: 700; }
+    .projects-header h2 em { font-style: normal; color: #9B5DE5; }
+    .projects-header a { color: #9B5DE5; font-weight: 600; font-size: 15px; }
+    .proj-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 200px 200px;
+      gap: 12px;
+    }
+    .proj-item {
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+    }
+    .proj-item.big { grid-row: 1 / 3; }
+    .proj-item img { width: 100%; height: 100%; object-fit: cover; }
+    .proj-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 48px;
+    }
+    .proj-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.65));
+      padding: 20px 16px 16px;
+      color: #fff;
+    }
+    .proj-overlay h4 { font-size: 15px; font-weight: 600; }
+    .proj-overlay span { font-size: 12px; opacity: 0.8; }
+
+    /* FOOTER */
+    footer {
+      background: #111;
+      color: #fff;
+      padding: 50px 60px 28px;
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 36px;
+      border-bottom: 1px solid #222;
+      margin-bottom: 36px;
+    }
+    .footer-logo img { height: 44px; display: block; margin-bottom: 12px; }
+    .footer-links { display: flex; gap: 32px; }
+    .footer-links a { color: #888; font-size: 14px; text-decoration: none; }
+    .footer-links a:hover { color: #9B5DE5; }
+    .footer-socials { display: flex; gap: 10px; }
+    .social-chip {
+      background: #222;
+      width: 38px; height: 38px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .social-chip:hover { background: #333; }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #555;
+    }
+
+    /* BADGE */
+    .proposal-badge {
+      position: fixed;
+      top: 12px; right: 12px;
+      background: #9B5DE5;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 20px;
+      z-index: 9999;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+<div class="proposal-badge">Propuesta B — Vibrante y Joven</div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo"><img src="assets/img/logo/logo-bordaliquido.png" alt="Bordalíquido" onerror="this.outerHTML='<span style=\'font-size:22px;font-weight:800;color:#111\'>Bordalíquido</span>'"></div>
+  <div class="nav-links">
+    <a href="#">Inicio</a>
+    <a href="#">Productos</a>
+    <a href="#">Proyectos</a>
+    <a href="#">Distribuidores</a>
+    <a href="#">Contacto</a>
+  </div>
+  <div class="nav-right">
+    <a href="#" class="nav-wsp">💬 WhatsApp</a>
+    <a href="#" class="nav-cta">Ver catálogo</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-pill"><span></span> Productores colombianos desde el año 2000</div>
+    <h1>Pinta,<br>crea,<br><em>transforma.</em></h1>
+    <p>Más de 150 referencias de pinturas para tela, madera y mucho más. Calidad colombiana para tus proyectos DIY.</p>
+    <div class="hero-btns">
+      <a href="#" class="btn-hero-main">🎨 Explorar productos</a>
+      <a href="#" class="btn-hero-sec">Ver proyectos →</a>
+    </div>
+  </div>
+  <div class="hero-img-area">
+    <div class="hero-img-main">
+      <img src="assets/img/projects/macaw.png" alt="Proyecto" onerror="this.parentElement.style.fontSize='60px'; this.remove()">
+      🦜
+    </div>
+    <div class="hero-img-sm">
+      <img src="assets/img/projects/butterfly.png" alt="Mariposa" onerror="this.remove()">
+      🦋
+    </div>
+    <div class="hero-img-sm">
+      <img src="assets/img/products/fabric-paint.png" alt="Pinturas" onerror="this.remove()">
+      🎨
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div style="background:#fff; padding:40px 60px 0;">
+  <div style="display:flex; gap:0; background:#f8f8f8; border-radius:14px; overflow:hidden; max-width:700px; margin:0 auto; transform:translateY(-30px); box-shadow:0 8px 30px rgba(0,0,0,0.1);">
+    <div class="stat-item" style="flex:1;">
+      <div class="stat-num">+150</div>
+      <div class="stat-label">Referencias</div>
+    </div>
+    <div class="stat-item" style="flex:1; border-right:1px solid #e8e8e8;">
+      <div class="stat-num">25+</div>
+      <div class="stat-label">Años de experiencia</div>
+    </div>
+    <div class="stat-item" style="flex:1; border-right:1px solid #e8e8e8;">
+      <div class="stat-num">11</div>
+      <div class="stat-label">Ciudades con distribuidores</div>
+    </div>
+    <div class="stat-item" style="flex:1;">
+      <div class="stat-num">🇨🇴</div>
+      <div class="stat-label">Envíos a todo Colombia</div>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORÍAS -->
+<section class="cats-section">
+  <div class="cats-header">
+    <h2>Encuentra tu <span>categoría</span></h2>
+    <a href="#">Ver todas las categorías →</a>
+  </div>
+  <div class="cats-grid">
+    <a href="#" class="cat-tile c1">
+      <span class="emoji">🧵</span>
+      <div>Pintura Textil <span class="arrow">↗</span></div>
+    </a>
+    <a href="#" class="cat-tile c2">
+      <span class="emoji">🪵</span>
+      <div>Pintura para Madera <span class="arrow">↗</span></div>
+    </a>
+    <a href="#" class="cat-tile c3">
+      <span class="emoji">✨</span>
+      <div>Escarchas <span class="arrow">↗</span></div>
+    </a>
+    <a href="#" class="cat-tile c4">
+      <span class="emoji">🧴</span>
+      <div>Pegantes <span class="arrow">↗</span></div>
+    </a>
+    <a href="#" class="cat-tile c5">
+      <span class="emoji">🎭</span>
+      <div>Estenciles <span class="arrow">↗</span></div>
+    </a>
+    <a href="#" class="cat-tile c6">
+      <span class="emoji">🖌️</span>
+      <div>Complementos <span class="arrow">↗</span></div>
+    </a>
+    <a href="#" class="cat-tile c7">
+      <span class="emoji">🧪</span>
+      <div>Lacas <span class="arrow">↗</span></div>
+    </a>
+    <a href="#" class="cat-tile c8">
+      <span class="emoji">🎨</span>
+      <div>Sublimación <span class="arrow">↗</span></div>
+    </a>
+    <a href="#" class="cat-tile c9">
+      <span class="emoji">🦋</span>
+      <div>Proyectos en Tela <span class="arrow">↗</span></div>
+    </a>
+    <a href="#" class="cat-tile c10">
+      <span class="emoji">🏡</span>
+      <div>Proyectos en MDF <span class="arrow">↗</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- PRODUCTOS -->
+<section class="prod-section">
+  <div class="prod-header">
+    <h2>Productos <span>más vendidos</span></h2>
+    <div class="prod-filters">
+      <button class="filter-btn active">Todos</button>
+      <button class="filter-btn">Textil</button>
+      <button class="filter-btn">Madera</button>
+      <button class="filter-btn">Proyectos</button>
+    </div>
+  </div>
+  <div class="prod-grid">
+    <div class="prod-card">
+      <div class="prod-img">
+        <span class="prod-badge">Más vendido</span>
+        <img src="assets/img/frascos/plana/azul_celeste.png" alt="Pintura" onerror="this.parentElement.style.background='#00BBF9';this.remove()">
+      </div>
+      <div class="prod-body">
+        <h3>Pintura Textil Azul Celeste</h3>
+        <div class="meta">Textil · 60 cc</div>
+        <div class="prod-row">
+          <span class="prod-price">$8.500</span>
+          <button class="btn-add">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-img">
+        <img src="assets/img/frascos/plana/amarillo_sol.png" alt="Pintura" onerror="this.parentElement.style.background='#FEE440';this.remove()">
+      </div>
+      <div class="prod-body">
+        <h3>Pintura Textil Amarillo Sol</h3>
+        <div class="meta">Textil · 60 cc</div>
+        <div class="prod-row">
+          <span class="prod-price">$8.500</span>
+          <button class="btn-add">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-img">
+        <span class="prod-badge">Nuevo</span>
+        <img src="assets/img/products/glitter.png" alt="Escarcha" onerror="this.parentElement.style.background='#f0e0ff';this.remove()">
+      </div>
+      <div class="prod-body">
+        <h3>Escarcha Fina Dorada</h3>
+        <div class="meta">Escarchas · 30 g</div>
+        <div class="prod-row">
+          <span class="prod-price">$6.200</span>
+          <button class="btn-add">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-img">
+        <img src="assets/img/projects/butterfly.png" alt="Proyecto" onerror="this.parentElement.style.background='#F7B7C3';this.remove()">
+      </div>
+      <div class="prod-body">
+        <h3>Lienzo Mariposa para bordar</h3>
+        <div class="meta">Proyecto en Tela</div>
+        <div class="prod-row">
+          <span class="prod-price">$22.000</span>
+          <button class="btn-add">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BANNER DIY -->
+<section class="diy-banner">
+  <div class="diy-text">
+    <h2>¿Tu primer proyecto <em>DIY</em>?<br>Nosotros te guiamos.</h2>
+    <p>Tenemos tutoriales, técnicas paso a paso y proyectos listos para trabajar. Cualquier persona puede crear, sin importar su nivel.</p>
+    <a href="#" class="btn-diy">Ver tips y tutoriales →</a>
+  </div>
+  <div class="diy-imgs">
+    <div class="diy-img">
+      <img src="assets/img/projects/owl.png" alt="Búho" onerror="this.remove()">
+      🦉
+    </div>
+    <div class="diy-img">
+      <img src="assets/img/projects/hummingbird.png" alt="Colibrí" onerror="this.remove()">
+      🐦
+    </div>
+    <div class="diy-img">
+      <img src="assets/img/products/stencils.jpg" alt="Estenciles" onerror="this.remove()">
+      🎭
+    </div>
+  </div>
+</section>
+
+<!-- PROYECTOS -->
+<section class="projects-section">
+  <div class="projects-header">
+    <h2>Proyectos que te van a <em>inspirar</em></h2>
+    <a href="#">Ver todos →</a>
+  </div>
+  <div class="proj-grid">
+    <div class="proj-item big">
+      <div class="proj-placeholder" style="background:#9B5DE5;">
+        <img src="assets/img/projects/macaw.png" alt="Guacamaya" style="width:100%;height:100%;object-fit:cover;" onerror="this.remove()">
+        🦜
+      </div>
+      <div class="proj-overlay">
+        <h4>Guacamaya en tela</h4>
+        <span>Pintura textil + escarcha</span>
+      </div>
+    </div>
+    <div class="proj-item">
+      <div class="proj-placeholder" style="background:#00BBF9;">
+        <img src="assets/img/projects/christmas-ball-reindeer.png" alt="Bola Navidad" style="width:100%;height:100%;object-fit:cover;" onerror="this.remove()">
+        🎄
+      </div>
+      <div class="proj-overlay">
+        <h4>Bola navideña</h4>
+        <span>Proyecto en tela</span>
+      </div>
+    </div>
+    <div class="proj-item">
+      <div class="proj-placeholder" style="background:#F25F5C;">
+        <img src="assets/img/projects/elephant.png" alt="Elefante" style="width:100%;height:100%;object-fit:cover;" onerror="this.remove()">
+        🐘
+      </div>
+      <div class="proj-overlay" style="background:linear-gradient(transparent, rgba(0,0,0,0.6))">
+        <h4>Elefante en tela</h4>
+        <span>Proyecto en tela</span>
+      </div>
+    </div>
+    <div class="proj-item">
+      <div class="proj-placeholder" style="background:#F25F5C;">
+        <img src="assets/img/projects/cabin.png" alt="Cabaña" style="width:100%;height:100%;object-fit:cover;" onerror="this.remove()">
+        🏡
+      </div>
+      <div class="proj-overlay">
+        <h4>Cabaña decorativa</h4>
+        <span>Proyecto en MDF</span>
+      </div>
+    </div>
+    <div class="proj-item">
+      <div class="proj-placeholder" style="background:#F7B7C3;">
+        <img src="assets/img/projects/owl2.png" alt="Búho 2" style="width:100%;height:100%;object-fit:cover;" onerror="this.remove()">
+        🦉
+      </div>
+      <div class="proj-overlay">
+        <h4>Búho nocturno</h4>
+        <span>Pintura textil</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-logo"><img src="assets/img/logo/logo-bordaliquido.png" alt="Bordalíquido" onerror="this.outerHTML='<span style=\'font-size:22px;font-weight:800;color:#fff\'>Bordalíquido</span>'"></div>
+    <div class="footer-links">
+      <a href="#">Productos</a>
+      <a href="#">Proyectos</a>
+      <a href="#">Distribuidores</a>
+      <a href="#">Nosotros</a>
+      <a href="#">Contacto</a>
+    </div>
+    <div class="footer-socials">
+      <a href="#" class="social-chip" title="Facebook"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+      <a href="#" class="social-chip" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><defs><radialGradient id="igB" cx="30%" cy="107%" r="150%"><stop offset="0%" stop-color="#fdf497"/><stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/><stop offset="90%" stop-color="#285AEB"/></radialGradient></defs><path fill="url(#igB)" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+      <a href="#" class="social-chip" title="YouTube"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path fill="#FF0000" d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Bordalíquido — Pinturas Fantasía SAS · Medellín, Colombia</span>
+    <span>info@pinturasfantasia.com</span>
+  </div>
+</footer>
+
+</body>
+</html>

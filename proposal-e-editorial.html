@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bordalíquido — Propuesta E: Editorial</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #FAF6EF;
+      --ink: #1E1A14;
+      --muted: #8A7D6B;
+      --light: #F0E9DC;
+      --yellow: #F25F5C;
+      --purple: #9B5DE5;
+      --coral: #F25F5C;
+      --white: #FEFCF9;
+    }
+    body { font-family: 'Poppins', sans-serif; background: var(--cream); color: var(--ink); }
+
+    /* NAV */
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid rgba(30,26,20,0.1);
+      padding: 0 60px;
+      height: 72px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo img { height: 48px; }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a { font-size: 14px; color: var(--muted); text-decoration: none; font-weight: 400; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-right { display: flex; gap: 16px; align-items: center; }
+    .nav-wsp { font-size: 13px; color: var(--muted); text-decoration: none; }
+    .nav-wsp:hover { color: var(--ink); }
+    .nav-cta {
+      background: var(--ink); color: var(--yellow);
+      font-size: 13px; font-weight: 600;
+      padding: 10px 22px; border-radius: 2px; text-decoration: none;
+    }
+    .nav-cta:hover { background: #333; }
+
+    /* HERO */
+    .hero {
+      background: var(--cream);
+      padding: 80px 60px 0;
+      display: grid;
+      grid-template-columns: 5fr 4fr;
+      gap: 0;
+      min-height: 580px;
+      border-bottom: 1px solid rgba(30,26,20,0.1);
+    }
+    .hero-text { padding-right: 60px; padding-bottom: 80px; display: flex; flex-direction: column; justify-content: center; }
+    .hero-kicker {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 28px;
+    }
+    .hero-kicker-dot { width: 8px; height: 8px; background: var(--coral); border-radius: 50%; }
+    .hero-kicker span { font-size: 12px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500; }
+    .hero-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 72px; font-weight: 900; line-height: 1.0;
+      margin-bottom: 28px; color: var(--ink);
+    }
+    .hero-text h1 em { font-style: italic; color: var(--coral); }
+    .hero-text p {
+      font-size: 16px; color: var(--muted);
+      line-height: 1.8; margin-bottom: 40px; max-width: 400px;
+    }
+    .hero-btns { display: flex; gap: 14px; align-items: center; }
+    .btn-ink {
+      background: var(--ink); color: var(--yellow);
+      font-size: 14px; font-weight: 600;
+      padding: 14px 30px; border-radius: 2px; text-decoration: none;
+    }
+    .btn-ink:hover { background: #333; }
+    .btn-text {
+      font-size: 14px; color: var(--ink); text-decoration: none;
+      border-bottom: 1px solid var(--ink); padding-bottom: 2px;
+    }
+    .hero-right {
+      position: relative;
+      border-left: 1px solid rgba(30,26,20,0.1);
+      padding-left: 40px;
+      padding-bottom: 0;
+      display: flex; flex-direction: column; justify-content: flex-end;
+    }
+    .hero-img-main {
+      height: 440px; border-radius: 4px 4px 0 0;
+      overflow: hidden; background: var(--light);
+      display: flex; align-items: center; justify-content: center; font-size: 60px;
+    }
+    .hero-img-main img { width:100%; height:100%; object-fit:cover; }
+    .hero-caption { padding: 16px 0 0; font-size: 12px; color: var(--muted); letter-spacing: 0.5px; }
+    .hero-stats {
+      position: absolute; bottom: 40px; left: -40px;
+      background: var(--yellow);
+      padding: 20px 24px;
+      border-radius: 2px;
+    }
+    .hero-stats .num { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 900; color: #fff; line-height: 1; }
+    .hero-stats .label { font-size: 12px; color: rgba(255,255,255,0.8); margin-top: 4px; }
+
+    /* CATEGORÍAS */
+    .cats-section { padding: 80px 60px; background: var(--white); }
+    .editorial-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; border-bottom: 1px solid rgba(30,26,20,0.1); padding-bottom: 24px; }
+    .editorial-header h2 { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 700; color: var(--ink); }
+    .editorial-header h2 em { font-style: italic; color: var(--purple); }
+    .editorial-header a { font-size: 13px; color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--muted); }
+    .editorial-header a:hover { color: var(--ink); border-color: var(--ink); }
+    .cats-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 1px; border: 1px solid rgba(30,26,20,0.1); }
+    .cat-tile {
+      background: var(--cream); padding: 28px 20px;
+      text-decoration: none; color: var(--ink);
+      border-right: 1px solid rgba(30,26,20,0.1);
+      transition: background 0.2s;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .cat-tile:last-child { border-right: none; }
+    .cat-tile:hover { background: #e8d5b7; color: var(--ink); }
+    .cat-tile:hover .cat-tile-muted { color: var(--muted); }
+    .cat-tile:hover .cat-tile-arrow { color: var(--yellow); }
+    .cat-tile-img { height: 100px; border-radius: 2px; overflow:hidden; background: var(--light); display:flex; align-items:center; justify-content:center; font-size:32px; }
+    .cat-tile-img img { width:100%; height:100%; object-fit:cover; }
+    .cat-tile h3 { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; line-height: 1.3; }
+    .cat-tile-muted { font-size: 12px; color: var(--muted); }
+    .cat-tile-arrow { font-size: 18px; color: var(--coral); margin-top: auto; }
+
+    /* SPLIT FEATURE */
+    .feature-section {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 500px;
+    }
+    .feature-img { overflow:hidden; background: var(--light); display:flex; align-items:center; justify-content:center; font-size:80px; }
+    .feature-img img { width:100%; height:100%; object-fit:cover; }
+    .feature-text {
+      background: var(--ink); padding: 70px 60px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .feature-tag { font-size: 11px; color: rgba(254,228,64,0.6); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+    .feature-text h2 { font-family: 'Playfair Display', serif; font-size: 44px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 20px; }
+    .feature-text h2 em { font-style: italic; color: var(--yellow); }
+    .feature-text p { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.8; margin-bottom: 32px; }
+    .btn-yellow { color: #fff !important;
+      display: inline-block;
+      background: var(--yellow); color: var(--ink);
+      font-size: 14px; font-weight: 600;
+      padding: 14px 28px; border-radius: 2px; text-decoration: none;
+    }
+    .btn-yellow:hover { background: #f0d800; }
+
+    /* PRODUCTOS */
+    .prod-section { padding: 80px 60px; background: var(--cream); }
+    .prod-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; border: 1px solid rgba(30,26,20,0.1); margin-top: 48px; }
+    .prod-card {
+      background: var(--white); padding: 0;
+      border-right: 1px solid rgba(30,26,20,0.1);
+      overflow: hidden;
+      transition: background 0.2s;
+    }
+    .prod-card:last-child { border-right: none; }
+    .prod-card:hover { background: var(--light); }
+    .prod-img { height: 200px; overflow:hidden; background: var(--light); display:flex; align-items:center; justify-content:center; font-size:44px; }
+    .prod-img img { width:100%; height:100%; object-fit:contain; padding:8px; }
+    .prod-body { padding: 20px; }
+    .prod-tag { font-size: 10px; color: var(--coral); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin-bottom: 8px; display:block; }
+    .prod-body h3 { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+    .prod-body p { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+    .prod-row { display:flex; align-items:center; justify-content:space-between; }
+    .prod-price { font-size: 18px; font-weight: 600; color: var(--ink); }
+    .btn-add-prod {
+      background: var(--ink); color: var(--yellow);
+      font-size: 12px; font-weight: 600;
+      padding: 8px 14px; border-radius: 2px;
+      border: none; cursor: pointer; font-family: 'Poppins', sans-serif;
+    }
+    .btn-add-prod:hover { background: #333; }
+
+    /* PROYECTOS EDITORIAL */
+    .proj-section { padding: 80px 60px; background: var(--white); }
+    .proj-masonry { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: auto; gap: 20px; margin-top: 48px; }
+    .proj-item { border-radius: 2px; overflow:hidden; }
+    .proj-item.tall { grid-row: span 2; }
+    .proj-img { height: 240px; background: var(--light); display:flex; align-items:center; justify-content:center; font-size:52px; overflow:hidden; }
+    .proj-item.tall .proj-img { height: 100%; min-height: 500px; }
+    .proj-img img { width:100%; height:100%; object-fit:cover; }
+    .proj-body { padding: 18px; background: var(--cream); border: 1px solid rgba(30,26,20,0.08); border-top: none; }
+    .proj-body h4 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; margin-bottom: 4px; color: var(--ink); }
+    .proj-body p { font-size: 13px; color: var(--muted); }
+
+    /* HISTORIA */
+    .story-section { padding: 80px 60px; background: var(--cream); border-top: 1px solid rgba(30,26,20,0.1); }
+    .story-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; margin-top:48px; }
+    .story-nums { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+    .story-num-item { padding: 24px; background: var(--white); border: 1px solid rgba(30,26,20,0.08); border-radius: 2px; }
+    .story-big-num { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 900; color: var(--ink); line-height: 1; }
+    .story-big-num em { font-style: normal; color: var(--coral); }
+    .story-num-label { font-size: 13px; color: var(--muted); margin-top: 6px; }
+    .story-text h2 { font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 700; color: var(--ink); line-height: 1.25; margin-bottom: 20px; }
+    .story-text h2 em { font-style: italic; color: var(--purple); }
+    .story-text p { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 14px; }
+    .story-quote {
+      border-left: 3px solid var(--yellow); padding-left: 20px;
+      margin: 24px 0;
+      font-family: 'Playfair Display', serif;
+      font-size: 18px; font-style: italic; color: var(--ink);
+      line-height: 1.6;
+    }
+
+    /* CTA */
+    .cta-section {
+      background: var(--yellow); padding: 70px 60px;
+      display: flex; align-items: center; justify-content: space-between; gap: 40px;
+    }
+    .cta-text h2 { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 900; color: #fff; line-height: 1.2; margin-bottom: 12px; }
+    .cta-text h2 em { font-style: italic; }
+    .cta-text p { font-size: 16px; color: rgba(255,255,255,0.75); }
+    .cta-btns { display:flex; gap:14px; flex-shrink:0; }
+    .btn-cta-dark { background: var(--ink); color: #fff; font-size:15px; font-weight:600; padding:16px 32px; border-radius:2px; text-decoration:none; }
+    .btn-cta-dark:hover { background: #333; }
+    .btn-cta-wsp { background: #25D366; color:#fff; font-size:15px; font-weight:600; padding:16px 24px; border-radius:2px; text-decoration:none; }
+
+    /* FOOTER */
+    footer { background: var(--ink); color: #fff; padding: 60px 60px 30px; }
+    .footer-top { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; padding-bottom:40px; border-bottom:1px solid rgba(255,255,255,0.08); margin-bottom:28px; }
+    .footer-logo img { height:44px; margin-bottom:14px; filter: brightness(0) invert(1); }
+    .footer-brand p { font-size:14px; color:rgba(255,255,255,0.4); line-height:1.7; }
+    .footer-col h4 { font-size:11px; font-weight:600; color:rgba(255,255,255,0.9); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:16px; }
+    .footer-col a { display:block; font-size:14px; color:rgba(255,255,255,0.4); text-decoration:none; margin-bottom:10px; }
+    .footer-col a:hover { color: var(--yellow); }
+    .footer-bottom { display:flex; justify-content:space-between; font-size:13px; color:rgba(255,255,255,0.2); }
+
+    /* BADGE */
+    .proposal-badge {
+      position:fixed; top:12px; right:12px; z-index:9999;
+      background: var(--coral); color:#fff;
+      font-family:'Poppins',sans-serif; font-size:12px; font-weight:600;
+      padding:8px 16px; border-radius:2px;
+      box-shadow:0 2px 12px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+<div class="proposal-badge">Propuesta E — Editorial</div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo"><img src="assets/img/logo/logo-bordaliquido.png" alt="Bordalíquido" onerror="this.outerHTML='<span style=\'font-family:Playfair Display,serif;font-size:22px;font-weight:900;color:#1E1A14\'>Bordalíquido</span>'"></div>
+  <div class="nav-links">
+    <a href="#">Inicio</a>
+    <a href="#">Productos</a>
+    <a href="#">Inspiración</a>
+    <a href="#">Distribuidores</a>
+    <a href="#">Nosotros</a>
+  </div>
+  <div class="nav-right">
+    <a href="#" class="nav-wsp">💬 WhatsApp</a>
+    <a href="#" class="nav-cta">Ver catálogo</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-kicker">
+      <div class="hero-kicker-dot"></div>
+      <span>Empresa colombiana · Desde el año 2000</span>
+    </div>
+    <h1>Tu creatividad<br><em>empieza aquí.</em></h1>
+    <p>Somos productores de pinturas para manualidades de alta calidad. Más de 150 referencias para tela, madera, escarchas, pegantes y más.</p>
+    <div class="hero-btns">
+      <a href="#" class="btn-ink">Explorar catálogo</a>
+      <a href="#" class="btn-text">Ver proyectos →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-main">
+      <img src="assets/img/projects/macaw.png" alt="Guacamaya" onerror="this.remove()">
+      🦜
+    </div>
+    <div class="hero-caption">Guacamaya — Proyecto en tela · Pintura textil Bordalíquido</div>
+    <div class="hero-stats">
+      <div class="num">+150</div>
+      <div class="label">Referencias disponibles</div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORÍAS -->
+<section class="cats-section">
+  <div class="editorial-header">
+    <h2>Nuestras <em>categorías</em></h2>
+    <a href="#">Ver catálogo completo →</a>
+  </div>
+  <div class="cats-grid">
+    <a href="#" class="cat-tile">
+      <div class="cat-tile-img"><img src="assets/img/products/fabric-paint.png" alt="" onerror="this.remove()">🧵</div>
+      <h3>Pintura Textil</h3>
+      <span class="cat-tile-muted">Para tela y tejidos</span>
+      <span class="cat-tile-arrow">↗</span>
+    </a>
+    <a href="#" class="cat-tile">
+      <div class="cat-tile-img"><img src="assets/img/products/background-paint.png" alt="" onerror="this.remove()">🪵</div>
+      <h3>Pintura para Madera</h3>
+      <span class="cat-tile-muted">MDF y superficies</span>
+      <span class="cat-tile-arrow">↗</span>
+    </a>
+    <a href="#" class="cat-tile">
+      <div class="cat-tile-img"><img src="assets/img/products/glitter.png" alt="" onerror="this.remove()">✨</div>
+      <h3>Escarchas</h3>
+      <span class="cat-tile-muted">Brillos y detalles</span>
+      <span class="cat-tile-arrow">↗</span>
+    </a>
+    <a href="#" class="cat-tile">
+      <div class="cat-tile-img"><img src="assets/img/products/adhesives.png" alt="" onerror="this.remove()">🧴</div>
+      <h3>Pegantes</h3>
+      <span class="cat-tile-muted">Alta adhesión</span>
+      <span class="cat-tile-arrow">↗</span>
+    </a>
+    <a href="#" class="cat-tile">
+      <div class="cat-tile-img"><img src="assets/img/projects/butterfly.png" alt="" onerror="this.remove()">🦋</div>
+      <h3>Proyectos en Tela</h3>
+      <span class="cat-tile-muted">Listos para trabajar</span>
+      <span class="cat-tile-arrow">↗</span>
+    </a>
+  </div>
+</section>
+
+<!-- SPLIT FEATURE -->
+<section class="feature-section">
+  <div class="feature-img">
+    <img src="assets/img/products/background-paint.png" alt="Pinturas" onerror="this.remove()">
+    🎨
+  </div>
+  <div class="feature-text">
+    <div class="feature-tag">Lo que nos diferencia</div>
+    <h2>Más que pinturas,<br><em>enseñamos a crear.</em></h2>
+    <p>Ofrecemos capacitación directa para docentes y distribuidores. Talleres en técnicas de aplicación, manejo de materiales y proyectos terminados.</p>
+    <a href="#" class="btn-yellow">Conocer más sobre capacitación</a>
+  </div>
+</section>
+
+<!-- PRODUCTOS -->
+<section class="prod-section">
+  <div class="editorial-header">
+    <h2>Productos <em>destacados</em></h2>
+    <a href="#">Ver todos →</a>
+  </div>
+  <div class="prod-grid">
+    <div class="prod-card">
+      <div class="prod-img"><img src="assets/img/frascos/plana/azul_celeste.png" alt="" onerror="this.parentElement.style.background='#00BBF9';this.remove()"></div>
+      <div class="prod-body">
+        <span class="prod-tag">Pintura Textil</span>
+        <h3>Pintura Textil Azul Celeste</h3>
+        <p>60 cc · Para tela y tejidos</p>
+        <div class="prod-row"><span class="prod-price">$8.500</span><button class="btn-add-prod">+ Agregar</button></div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-img"><img src="assets/img/frascos/plana/amarillo_sol.png" alt="" onerror="this.parentElement.style.background='#FEE440';this.remove()"></div>
+      <div class="prod-body">
+        <span class="prod-tag">Pintura Textil</span>
+        <h3>Pintura Textil Amarillo Sol</h3>
+        <p>60 cc · Alta fijación al calor</p>
+        <div class="prod-row"><span class="prod-price">$8.500</span><button class="btn-add-prod">+ Agregar</button></div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-img"><img src="assets/img/products/glitter.png" alt="" onerror="this.parentElement.style.background='#f0e0ff';this.remove()"></div>
+      <div class="prod-body">
+        <span class="prod-tag">Escarchas</span>
+        <h3>Escarcha Fina Dorada</h3>
+        <p>30 g · Efecto brillante</p>
+        <div class="prod-row"><span class="prod-price">$6.200</span><button class="btn-add-prod">+ Agregar</button></div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-img"><img src="assets/img/projects/butterfly.png" alt="" onerror="this.parentElement.style.background='#F7B7C3';this.remove()"></div>
+      <div class="prod-body">
+        <span class="prod-tag">Proyecto en Tela</span>
+        <h3>Lienzo Mariposa para bordar</h3>
+        <p>Diseño transferido incluido</p>
+        <div class="prod-row"><span class="prod-price">$22.000</span><button class="btn-add-prod">+ Agregar</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROYECTOS -->
+<section class="proj-section">
+  <div class="editorial-header">
+    <h2>Galería de <em>proyectos</em></h2>
+    <a href="#">Ver toda la galería →</a>
+  </div>
+  <div class="proj-masonry">
+    <div class="proj-item tall">
+      <div class="proj-img" style="min-height:500px;"><img src="assets/img/projects/macaw.png" alt="" onerror="this.remove()">🦜</div>
+      <div class="proj-body"><h4>Guacamaya en tela</h4><p>Pintura textil + escarcha</p></div>
+    </div>
+    <div class="proj-item">
+      <div class="proj-img"><img src="assets/img/projects/owl.png" alt="" onerror="this.remove()">🦉</div>
+      <div class="proj-body"><h4>Búho decorativo</h4><p>Pintura textil múltiple</p></div>
+    </div>
+    <div class="proj-item">
+      <div class="proj-img"><img src="assets/img/projects/hummingbird.png" alt="" onerror="this.remove()">🐦</div>
+      <div class="proj-body"><h4>Colibrí en tela</h4><p>Pintura textil + bordeador</p></div>
+    </div>
+    <div class="proj-item">
+      <div class="proj-img"><img src="assets/img/projects/elephant.png" alt="" onerror="this.remove()">🐘</div>
+      <div class="proj-body"><h4>Elefante en tela</h4><p>Pintura textil</p></div>
+    </div>
+    <div class="proj-item">
+      <div class="proj-img"><img src="assets/img/projects/butterfly.png" alt="" onerror="this.remove()">🦋</div>
+      <div class="proj-body"><h4>Mariposa</h4><p>Pintura textil</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HISTORIA -->
+<section class="story-section">
+  <div class="editorial-header">
+    <h2>Nuestra <em>historia</em></h2>
+    <a href="#">Conocernos →</a>
+  </div>
+  <div class="story-grid">
+    <div class="story-nums">
+      <div class="story-num-item">
+        <div class="story-big-num"><em>25</em>+</div>
+        <div class="story-num-label">Años de experiencia</div>
+      </div>
+      <div class="story-num-item">
+        <div class="story-big-num"><em>150</em>+</div>
+        <div class="story-num-label">Referencias</div>
+      </div>
+      <div class="story-num-item">
+        <div class="story-big-num"><em>11</em></div>
+        <div class="story-num-label">Ciudades con distribuidores</div>
+      </div>
+      <div class="story-num-item">
+        <div class="story-big-num"><em>0</em></div>
+        <div class="story-num-label">Agentes tóxicos en nuestras fórmulas</div>
+      </div>
+    </div>
+    <div class="story-text">
+      <h2>Una empresa familiar <em>que crea contigo</em></h2>
+      <p>Somos una empresa familiar de Medellín. Desde el año 2000 producimos pinturas especializadas para manualidades, con un compromiso permanente con la calidad y el medio ambiente.</p>
+      <div class="story-quote">"La calidad siempre ha estado por encima de todo, y la atención rápida al cliente para solucionar sus necesidades."</div>
+      <p>Además de vender, enseñamos. Ofrecemos capacitación directa para docentes, almacenes distribuidores y cualquier persona que quiera aprender técnicas nuevas de pintura.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-text">
+    <h2>¿Lista para tu próximo<br><em>proyecto?</em></h2>
+    <p>Explora nuestro catálogo completo o escríbenos por WhatsApp.</p>
+  </div>
+  <div class="cta-btns">
+    <a href="#" class="btn-cta-dark">Ver catálogo</a>
+    <a href="#" class="btn-cta-wsp">💬 WhatsApp</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo"><img src="assets/img/logo/logo-bordaliquido.png" alt="Bordalíquido" onerror="this.outerHTML='<span style=\'font-family:Playfair Display,serif;font-size:22px;font-weight:900;color:#FEE440\'>Bordalíquido</span>'"></div>
+      <p>Productores de pinturas para manualidades desde el año 2000. Medellín, Colombia.</p>
+      <div style="display:flex;gap:8px;margin-top:16px;">
+        <a href="#" title="Facebook" style="background:rgba(255,255,255,0.08);width:36px;height:36px;border-radius:4px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        <a href="#" title="Instagram" style="background:rgba(255,255,255,0.08);width:36px;height:36px;border-radius:4px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><defs><radialGradient id="igE" cx="30%" cy="107%" r="150%"><stop offset="0%" stop-color="#fdf497"/><stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/><stop offset="90%" stop-color="#285AEB"/></radialGradient></defs><path fill="url(#igE)" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a href="#" title="YouTube" style="background:rgba(255,255,255,0.08);width:36px;height:36px;border-radius:4px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><path fill="#FF0000" d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Productos</h4><a href="#">Pintura Textil</a><a href="#">Pintura para Madera</a><a href="#">Escarchas</a><a href="#">Pegantes</a><a href="#">Estenciles</a></div>
+    <div class="footer-col"><h4>Empresa</h4><a href="#">Nosotros</a><a href="#">Cómo comprar</a><a href="#">Distribuidores</a><a href="#">Blog</a></div>
+    <div class="footer-col"><h4>Contacto</h4><a href="#">info@pinturasfantasia.com</a><a href="#">WhatsApp</a><a href="#">Medellín, Colombia</a></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Bordalíquido — Pinturas Fantasía SAS</span>
+    <span>Política de privacidad · Términos y condiciones</span>
+  </div>
+</footer>
+
+</body>
+</html>

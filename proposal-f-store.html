@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bordalíquido — Propuesta F: Tienda Primero</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Poppins', sans-serif; background: #f7f7f7; color: #111; }
+
+    /* TOP BAR */
+    .topbar {
+      background: #111; color: #fff;
+      padding: 9px 60px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 12px;
+    }
+    .topbar-left { display:flex; gap:24px; }
+    .topbar-left span { display:flex; align-items:center; gap:6px; color:rgba(255,255,255,0.7); }
+    .topbar-right { display:flex; gap:16px; }
+    .topbar-right a { color:rgba(255,255,255,0.6); text-decoration:none; font-size:12px; }
+    .topbar-right a:hover { color:#F25F5C; }
+
+    /* NAV */
+    nav {
+      background: #fff; border-bottom: 1px solid #e8e8e8;
+      padding: 0 60px; height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 200;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+    }
+    .logo img { height: 44px; }
+    .nav-search {
+      flex: 1; max-width: 440px; margin: 0 40px;
+      display: flex; align-items: center;
+      border: 1.5px solid #e0e0e0; border-radius: 6px;
+      overflow: hidden; background: #f7f7f7;
+    }
+    .nav-search select {
+      border: none; background: #eee; padding: 0 12px; height: 42px;
+      font-size: 12px; font-family: 'Poppins', sans-serif; color: #555;
+      cursor: pointer; outline: none; border-right: 1px solid #e0e0e0;
+    }
+    .nav-search input {
+      flex: 1; border: none; background: transparent;
+      padding: 0 14px; height: 42px; font-size: 13px;
+      font-family: 'Poppins', sans-serif; outline: none; color: #111;
+    }
+    .nav-search-btn {
+      background: #111; border: none; padding: 0 18px; height: 42px; color: #fff;
+      font-size: 16px; cursor: pointer;
+    }
+    .nav-right { display:flex; gap:20px; align-items:center; }
+    .nav-icon-btn { background:none; border:none; cursor:pointer; font-size:20px; color:#555; position:relative; }
+    .nav-cart-badge {
+      position:absolute; top:-4px; right:-6px;
+      background:#9B5DE5; color:#fff; font-size:10px; font-weight:700;
+      width:18px; height:18px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    }
+    .nav-cta {
+      background: #9B5DE5; color: #fff;
+      font-size: 13px; font-weight: 600;
+      padding: 9px 20px; border-radius: 6px; text-decoration: none;
+    }
+    .nav-cta:hover { background: #333; }
+
+    /* HERO COMPACTO */
+    .hero {
+      background: #fff; border-bottom: 1px solid #e8e8e8;
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+    }
+    .hero-main {
+      grid-column: 1/3;
+      background: linear-gradient(135deg, #111 0%, #1a1a2e 100%);
+      padding: 50px 50px 50px;
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative; overflow: hidden; min-height: 340px;
+    }
+    .hero-main::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 260px; height: 260px;
+      background: rgba(254,228,64,0.08); border-radius: 50%;
+    }
+    .hero-main-tag { font-size: 11px; font-weight: 600; color: rgba(254,228,64,0.7); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+    .hero-main h1 { font-size: 44px; font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 16px; }
+    .hero-main h1 em { font-style: normal; color: #F7B7C3; }
+    .hero-main p { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 28px; max-width: 380px; }
+    .btn-hero { background:#fff; color:#111; font-size:14px; font-weight:700; padding:13px 28px; border-radius:6px; text-decoration:none; display:inline-block; }
+    .btn-hero:hover { background:#f0d800; }
+    .hero-side { display:flex; flex-direction:column; border-left:1px solid rgba(255,255,255,0.05); }
+    .hero-side-item {
+      flex: 1; padding: 24px; display:flex; flex-direction:column; justify-content:flex-end;
+      position:relative; overflow:hidden; background: #1a1208;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .hero-side-item:last-child { border-bottom: none; }
+    .hero-side-item:hover { background: #2a1f10; }
+    .hero-side-item img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.35; }
+    .hero-side-item h3 { font-size: 15px; font-weight: 600; color: #fff; position:relative; z-index:2; }
+    .hero-side-item span { font-size: 12px; color: rgba(255,255,255,0.5); position:relative; z-index:2; margin-top:4px; }
+    .hero-side-arrow { position:absolute; top:16px; right:16px; color:rgba(255,255,255,0.6); font-size:16px; z-index:2; }
+
+    /* PROMO STRIP */
+    .promo-strip {
+      background: #1a1a2e; padding: 12px 60px;
+      display: flex; gap: 40px; align-items: center;
+      overflow-x: auto;
+    }
+    .promo-item { display:flex; align-items:center; gap:8px; font-size:13px; font-weight:500; color:rgba(255,255,255,0.8); white-space:nowrap; }
+
+    /* SIDEBAR + CATALOG LAYOUT */
+    .catalog-layout {
+      display: grid; grid-template-columns: 240px 1fr;
+      gap: 0; padding: 30px 60px; align-items: start;
+    }
+    .sidebar { position: sticky; top: 90px; }
+    .sidebar-section { margin-bottom: 28px; }
+    .sidebar-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #777; margin-bottom: 14px; }
+    .sidebar-cats { display:flex; flex-direction:column; gap: 2px; }
+    .cat-link {
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 8px 12px; border-radius: 6px; text-decoration:none;
+      color: #333; font-size: 14px; font-weight: 400;
+      transition: background 0.15s;
+    }
+    .cat-link:hover { background: #f0f0f0; color: #111; }
+    .cat-link.active { background: #111; color: #fff; font-weight: 600; }
+    .cat-link .count { font-size: 11px; color: #aaa; }
+    .cat-link.active .count { color: rgba(17,17,17,0.6); }
+    .sidebar-colors { display:flex; flex-wrap:wrap; gap:6px; }
+    .color-dot { width:24px; height:24px; border-radius:50%; cursor:pointer; border:2px solid transparent; transition: border-color 0.15s; }
+    .color-dot:hover { border-color: #111; }
+
+    /* CATALOG MAIN */
+    .catalog-main { }
+    .catalog-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
+    .catalog-header h2 { font-size: 22px; font-weight: 700; }
+    .catalog-header h2 span { color: #777; font-weight: 400; font-size: 16px; }
+    .catalog-controls { display:flex; gap:10px; align-items:center; }
+    .sort-select { border:1px solid #ddd; padding: 8px 12px; border-radius:6px; font-size:13px; font-family:'Poppins',sans-serif; color:#555; cursor:pointer; outline:none; }
+    .view-toggle button { background:#f0f0f0; border:none; padding:8px 10px; cursor:pointer; font-size:14px; }
+    .view-toggle button.active { background:#111; color:#fff; }
+    .prod-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 16px;
+    }
+    .prod-card {
+      background: #fff; border-radius: 10px; overflow:hidden;
+      border: 1px solid #eee;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .prod-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    .prod-img-wrap { position:relative; }
+    .prod-img { height: 180px; overflow:hidden; background:#f5f5f5; display:flex; align-items:center; justify-content:center; font-size:40px; }
+    .prod-img img { width:100%; height:100%; object-fit:contain; padding:8px; }
+    .prod-badge { position:absolute; top:10px; left:10px; background:#9B5DE5; color:#fff; font-size:10px; font-weight:700; padding:3px 8px; border-radius:3px; text-transform:uppercase; letter-spacing:0.5px; }
+    .prod-wishlist { position:absolute; top:10px; right:10px; background:#fff; border:none; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:14px; box-shadow:0 1px 4px rgba(0,0,0,0.1); }
+    .prod-body { padding: 14px; }
+    .prod-cat-tag { font-size: 10px; color: #9B5DE5; font-weight: 600; text-transform:uppercase; letter-spacing:1px; margin-bottom:5px; }
+    .prod-body h3 { font-size: 14px; font-weight: 600; margin-bottom: 2px; color: #111; }
+    .prod-body .prod-sub { font-size: 12px; color: #888; margin-bottom: 10px; }
+
+    /* SWATCHES */
+    .prod-swatches { display:flex; gap:4px; margin-bottom: 12px; flex-wrap:wrap; }
+    .swatch { width:16px; height:16px; border-radius:50%; border:1px solid rgba(0,0,0,0.1); cursor:pointer; }
+
+    .prod-row { display:flex; align-items:center; justify-content:space-between; }
+    .prod-price { font-size: 17px; font-weight: 700; color: #111; }
+    .btn-cart {
+      background: #111; color: #fff; border: none;
+      font-size: 12px; font-weight: 600; padding: 8px 14px;
+      border-radius: 6px; cursor: pointer; font-family: 'Poppins',sans-serif;
+    }
+    .btn-cart:hover { background: #333; }
+
+    /* PROYECTOS BANNER */
+    .proj-banner {
+      margin: 30px 60px;
+      background: #111; border-radius: 12px; overflow:hidden;
+      display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 0; height: 220px;
+    }
+    .proj-cell {
+      position:relative; overflow:hidden;
+      border-right: 2px solid #111;
+      cursor:pointer; text-decoration:none; display:block;
+    }
+    .proj-cell:last-child { border-right: none; }
+    .proj-cell img { width:100%; height:100%; object-fit:cover; opacity:0.75; transition:opacity 0.2s; }
+    .proj-cell:hover img { opacity:1; }
+    .proj-placeholder { width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-size:48px; }
+    .proj-cell-overlay { position:absolute; bottom:0; left:0; right:0; padding:16px 14px 12px; background:linear-gradient(transparent,rgba(0,0,0,0.75)); }
+    .proj-cell-overlay h4 { font-size: 13px; font-weight:600; color:#fff; }
+    .proj-cell-overlay p { font-size: 11px; color:rgba(255,255,255,0.6); margin-top:2px; }
+    .proj-banner-cta {
+      background: #F25F5C;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      padding: 24px; text-decoration:none;
+    }
+    .proj-banner-cta h3 { font-size: 18px; font-weight: 700; color: #fff; text-align:center; line-height: 1.3; margin-bottom: 12px; }
+    .proj-banner-cta span { background:#fff; color:#F25F5C; font-size:12px; font-weight:600; padding:8px 16px; border-radius:4px; }
+
+    /* LOAD MORE */
+    .load-more { text-align:center; padding: 40px 60px; }
+    .btn-load { background:#fff; border:1.5px solid #111; color:#111; font-size:14px; font-weight:600; padding:14px 40px; border-radius:6px; cursor:pointer; font-family:'Poppins',sans-serif; }
+    .btn-load:hover { background:#111; color:#fff; }
+
+    /* FOOTER */
+    footer { background:#111; color:#fff; padding:50px 60px 28px; margin-top:20px; }
+    .footer-top { display:flex; justify-content:space-between; align-items:center; padding-bottom:32px; border-bottom:1px solid rgba(255,255,255,0.08); margin-bottom:28px; flex-wrap:wrap; gap:20px; }
+    .footer-logo img { height:40px; }
+    .footer-links { display:flex; gap:28px; flex-wrap:wrap; }
+    .footer-links a { color:rgba(255,255,255,0.5); font-size:14px; text-decoration:none; }
+    .footer-links a:hover { color:#9B5DE5; }
+    .footer-socials { display:flex; gap:10px; }
+    .soc-btn { background:rgba(255,255,255,0.08); width:38px; height:38px; border-radius:6px; display:flex; align-items:center; justify-content:center; text-decoration:none; transition: background 0.2s; }
+    .soc-btn:hover { background:rgba(155,93,229,0.25); }
+    .footer-bottom { display:flex; justify-content:space-between; font-size:13px; color:rgba(255,255,255,0.2); }
+
+    /* BADGE */
+    .proposal-badge {
+      position:fixed; top:12px; right:12px; z-index:9999;
+      background:#9B5DE5; color:#fff;
+      font-family:'Poppins',sans-serif; font-size:12px; font-weight:600;
+      padding:8px 16px; border-radius:6px;
+      box-shadow:0 2px 12px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+<div class="proposal-badge">Propuesta F — Tienda Primero</div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <span>🚚 Envíos a todo Colombia</span>
+    <span>✅ Sin agentes tóxicos</span>
+    <span>🎓 Capacitación para docentes</span>
+  </div>
+  <div class="topbar-right">
+    <a href="#">Distribuidores</a>
+    <a href="#">Nosotros</a>
+    <a href="#">Contacto</a>
+    <a href="#">info@pinturasfantasia.com</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo"><img src="assets/img/logo/logo-bordaliquido.png" alt="Bordalíquido" onerror="this.outerHTML='<span style=\'font-size:20px;font-weight:800;color:#111\'>Bordalíquido</span>'"></div>
+  <div class="nav-search">
+    <select><option>Todo</option><option>Textil</option><option>Madera</option><option>Proyectos</option></select>
+    <input type="text" placeholder="Buscar pinturas, escarchas, proyectos...">
+    <button class="nav-search-btn">🔍</button>
+  </div>
+  <div class="nav-right">
+    <button class="nav-icon-btn">👤</button>
+    <button class="nav-icon-btn">
+      🛒
+      <span class="nav-cart-badge">0</span>
+    </button>
+    <a href="#" class="nav-cta">Ver catálogo</a>
+  </div>
+</nav>
+
+<!-- HERO COMPACTO -->
+<section class="hero">
+  <div class="hero-main">
+    <div class="hero-main-tag">🎨 Empresa colombiana · Más de 25 años</div>
+    <h1>Tu creatividad<br><em>empieza aquí</em></h1>
+    <p>Más de 150 referencias de pinturas para tela, madera, escarchas y proyectos listos para trabajar.</p>
+    <a href="#" class="btn-hero">Explorar productos →</a>
+  </div>
+  <div class="hero-side">
+    <a href="#" class="hero-side-item">
+      <img src="assets/img/products/fabric-paint.png" alt="" onerror="this.remove()">
+      <span class="hero-side-arrow">↗</span>
+      <h3>Pintura Textil</h3>
+      <span>Más de 60 colores disponibles</span>
+    </a>
+    <a href="#" class="hero-side-item">
+      <img src="assets/img/projects/macaw.png" alt="" onerror="this.remove()">
+      <span class="hero-side-arrow">↗</span>
+      <h3>Proyectos en Tela</h3>
+      <span>Listos para trabajar</span>
+    </a>
+    <a href="#" class="hero-side-item">
+      <img src="assets/img/products/glitter.png" alt="" onerror="this.remove()">
+      <span class="hero-side-arrow">↗</span>
+      <h3>Escarchas y Brillos</h3>
+      <span>Para decorar y resaltar</span>
+    </a>
+  </div>
+</section>
+
+<!-- PROMO STRIP -->
+<div class="promo-strip">
+  <div class="promo-item">🚚 Envío gratis en pedidos mayores a $80.000</div>
+  <div class="promo-item">⭐ Productores directos · Sin intermediarios</div>
+  <div class="promo-item">🎓 Capacitación para docentes y distribuidores</div>
+  <div class="promo-item">💬 Soporte por WhatsApp</div>
+</div>
+
+<!-- CATALOG: SIDEBAR + GRID -->
+<div class="catalog-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">Categorías</div>
+      <div class="sidebar-cats">
+        <a href="#" class="cat-link active">Todos los productos <span class="count">150+</span></a>
+        <a href="#" class="cat-link">Pintura Textil <span class="count">60</span></a>
+        <a href="#" class="cat-link">Pintura para Madera <span class="count">45</span></a>
+        <a href="#" class="cat-link">Escarchas <span class="count">20</span></a>
+        <a href="#" class="cat-link">Pegantes <span class="count">8</span></a>
+        <a href="#" class="cat-link">Lacas <span class="count">12</span></a>
+        <a href="#" class="cat-link">Estenciles <span class="count">30</span></a>
+        <a href="#" class="cat-link">Complementos <span class="count">15</span></a>
+        <a href="#" class="cat-link">Sublimación <span class="count">10</span></a>
+        <a href="#" class="cat-link">Proyectos en Tela <span class="count">25</span></a>
+        <a href="#" class="cat-link">Proyectos en MDF <span class="count">18</span></a>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Gama de colores</div>
+      <div class="sidebar-colors">
+        <div class="color-dot" style="background:#FF0000;" title="Rojo"></div>
+        <div class="color-dot" style="background:#FF6600;" title="Naranja"></div>
+        <div class="color-dot" style="background:#FEE440;" title="Amarillo"></div>
+        <div class="color-dot" style="background:#00BB44;" title="Verde"></div>
+        <div class="color-dot" style="background:#00BBF9;" title="Azul celeste"></div>
+        <div class="color-dot" style="background:#0044BB;" title="Azul oscuro"></div>
+        <div class="color-dot" style="background:#9B5DE5;" title="Lila"></div>
+        <div class="color-dot" style="background:#FF69B4;" title="Rosado"></div>
+        <div class="color-dot" style="background:#F25F5C;" title="Coral"></div>
+        <div class="color-dot" style="background:#8B4513;" title="Café"></div>
+        <div class="color-dot" style="background:#FFD700;" title="Dorado"></div>
+        <div class="color-dot" style="background:#C0C0C0;" title="Plateado"></div>
+        <div class="color-dot" style="background:#ffffff;border:1px solid #ddd;" title="Blanco"></div>
+        <div class="color-dot" style="background:#111111;" title="Negro"></div>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Precio</div>
+      <div style="font-size:13px;color:#555;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>$0</span><span>$50.000</span></div>
+        <input type="range" min="0" max="50000" value="50000" style="width:100%;accent-color:#111;">
+      </div>
+    </div>
+    <div style="background:#9B5DE5;padding:16px;border-radius:8px;text-align:center;margin-top:8px;">
+      <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:4px;">¿Necesitas ayuda?</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.75);margin-bottom:10px;">Escríbenos por WhatsApp</div>
+      <a href="#" style="background:#fff;color:#9B5DE5;font-size:12px;font-weight:600;padding:8px 16px;border-radius:4px;text-decoration:none;display:inline-block;">💬 Chatear</a>
+    </div>
+  </aside>
+
+  <!-- CATALOG MAIN -->
+  <div class="catalog-main">
+    <div class="catalog-header">
+      <h2>Todos los productos <span>(150+ referencias)</span></h2>
+      <div class="catalog-controls">
+        <select class="sort-select">
+          <option>Más vendidos</option>
+          <option>Precio: menor a mayor</option>
+          <option>Precio: mayor a menor</option>
+          <option>Más recientes</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="prod-grid">
+      <!-- Producto 1 -->
+      <div class="prod-card">
+        <div class="prod-img-wrap">
+          <div class="prod-img"><img src="assets/img/frascos/plana/azul_celeste.png" alt="" onerror="this.parentElement.style.background='#00BBF9';this.remove()"></div>
+          <span class="prod-badge">Más vendido</span>
+          <button class="prod-wishlist">🤍</button>
+        </div>
+        <div class="prod-body">
+          <div class="prod-cat-tag">Pintura Textil</div>
+          <h3>Pintura Textil Azul Celeste</h3>
+          <div class="prod-sub">60 cc · Alta fijación al calor</div>
+          <div class="prod-swatches">
+            <div class="swatch" style="background:#00BBF9;" title="Azul Celeste"></div>
+            <div class="swatch" style="background:#0044BB;" title="Azul Noche"></div>
+            <div class="swatch" style="background:#5599FF;" title="Azul Rey"></div>
+            <div class="swatch" style="background:#00DDBB;" title="Aguamarina"></div>
+            <span style="font-size:11px;color:#aaa;align-self:center;">+56 colores</span>
+          </div>
+          <div class="prod-row"><span class="prod-price">$8.500</span><button class="btn-cart">+ Agregar</button></div>
+        </div>
+      </div>
+
+      <!-- Producto 2 -->
+      <div class="prod-card">
+        <div class="prod-img-wrap">
+          <div class="prod-img"><img src="assets/img/frascos/plana/amarillo_sol.png" alt="" onerror="this.parentElement.style.background='#FEE440';this.remove()"></div>
+          <button class="prod-wishlist">🤍</button>
+        </div>
+        <div class="prod-body">
+          <div class="prod-cat-tag">Pintura Textil</div>
+          <h3>Pintura Textil Amarillo Sol</h3>
+          <div class="prod-sub">60 cc · Alta fijación al calor</div>
+          <div class="prod-swatches">
+            <div class="swatch" style="background:#FEE440;"></div>
+            <div class="swatch" style="background:#FF6600;"></div>
+            <div class="swatch" style="background:#FFD700;"></div>
+            <div class="swatch" style="background:#FFAA00;"></div>
+            <span style="font-size:11px;color:#aaa;align-self:center;">+56 colores</span>
+          </div>
+          <div class="prod-row"><span class="prod-price">$8.500</span><button class="btn-cart">+ Agregar</button></div>
+        </div>
+      </div>
+
+      <!-- Producto 3 -->
+      <div class="prod-card">
+        <div class="prod-img-wrap">
+          <div class="prod-img"><img src="assets/img/products/glitter.png" alt="" onerror="this.parentElement.style.background='#f0e0ff';this.remove()"></div>
+          <span class="prod-badge" style="background:#9B5DE5;color:#fff;">Nuevo</span>
+          <button class="prod-wishlist">🤍</button>
+        </div>
+        <div class="prod-body">
+          <div class="prod-cat-tag" style="color:#F25F5C;">Escarchas</div>
+          <h3>Escarcha Fina Dorada</h3>
+          <div class="prod-sub">30 g · Efecto brillante</div>
+          <div class="prod-swatches">
+            <div class="swatch" style="background:#FFD700;"></div>
+            <div class="swatch" style="background:#C0C0C0;"></div>
+            <div class="swatch" style="background:#FF0000;"></div>
+            <div class="swatch" style="background:#0000FF;"></div>
+            <span style="font-size:11px;color:#aaa;align-self:center;">+16 colores</span>
+          </div>
+          <div class="prod-row"><span class="prod-price">$6.200</span><button class="btn-cart">+ Agregar</button></div>
+        </div>
+      </div>
+
+      <!-- Producto 4 -->
+      <div class="prod-card">
+        <div class="prod-img-wrap">
+          <div class="prod-img"><img src="assets/img/products/adhesives.png" alt="" onerror="this.parentElement.style.background='#e8f0ff';this.remove()"></div>
+          <button class="prod-wishlist">🤍</button>
+        </div>
+        <div class="prod-body">
+          <div class="prod-cat-tag" style="color:#00BBF9;">Pegantes</div>
+          <h3>Pegante Multiusos x 250g</h3>
+          <div class="prod-sub">250 g · Alta adhesión</div>
+          <div class="prod-swatches"></div>
+          <div class="prod-row" style="margin-top:22px;"><span class="prod-price">$12.000</span><button class="btn-cart">+ Agregar</button></div>
+        </div>
+      </div>
+
+      <!-- Producto 5 -->
+      <div class="prod-card">
+        <div class="prod-img-wrap">
+          <div class="prod-img"><img src="assets/img/projects/butterfly.png" alt="" onerror="this.parentElement.style.background='#F7B7C3';this.remove()"></div>
+          <span class="prod-badge" style="background:#F25F5C;color:#fff;">Proyecto</span>
+          <button class="prod-wishlist">🤍</button>
+        </div>
+        <div class="prod-body">
+          <div class="prod-cat-tag" style="color:#F25F5C;">Proyecto en Tela</div>
+          <h3>Lienzo Mariposa para bordar</h3>
+          <div class="prod-sub">Diseño transferido incluido</div>
+          <div class="prod-swatches"></div>
+          <div class="prod-row" style="margin-top:22px;"><span class="prod-price">$22.000</span><button class="btn-cart">+ Agregar</button></div>
+        </div>
+      </div>
+
+      <!-- Producto 6 -->
+      <div class="prod-card">
+        <div class="prod-img-wrap">
+          <div class="prod-img"><img src="assets/img/projects/owl.png" alt="" onerror="this.parentElement.style.background='#e8e0ff';this.remove()"></div>
+          <span class="prod-badge" style="background:#F25F5C;color:#fff;">Proyecto</span>
+          <button class="prod-wishlist">🤍</button>
+        </div>
+        <div class="prod-body">
+          <div class="prod-cat-tag" style="color:#F25F5C;">Proyecto en Tela</div>
+          <h3>Lienzo Búho decorativo</h3>
+          <div class="prod-sub">Diseño transferido incluido</div>
+          <div class="prod-swatches"></div>
+          <div class="prod-row" style="margin-top:22px;"><span class="prod-price">$22.000</span><button class="btn-cart">+ Agregar</button></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PROYECTOS BANNER -->
+<div class="proj-banner">
+  <a href="#" class="proj-cell">
+    <img src="assets/img/projects/macaw.png" alt="" onerror="this.remove()">
+    <div class="proj-placeholder" style="background:#1a0d30">🦜</div>
+    <div class="proj-cell-overlay"><h4>Guacamaya en tela</h4><p>Pintura textil + escarcha</p></div>
+  </a>
+  <a href="#" class="proj-cell">
+    <img src="assets/img/projects/hummingbird.png" alt="" onerror="this.remove()">
+    <div class="proj-placeholder" style="background:#0d1a10">🐦</div>
+    <div class="proj-cell-overlay"><h4>Colibrí</h4><p>Pintura textil</p></div>
+  </a>
+  <a href="#" class="proj-cell">
+    <img src="assets/img/projects/elephant.png" alt="" onerror="this.remove()">
+    <div class="proj-placeholder" style="background:#1a1500">🐘</div>
+    <div class="proj-cell-overlay"><h4>Elefante</h4><p>Pintura textil</p></div>
+  </a>
+  <a href="#" class="proj-banner-cta">
+    <h3>¿Buscas un proyecto listo para trabajar?</h3>
+    <span>Ver todos los proyectos →</span>
+  </a>
+</div>
+
+<!-- LOAD MORE -->
+<div class="load-more">
+  <button class="btn-load">Cargar más productos</button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-logo"><img src="assets/img/logo/logo-bordaliquido.png" alt="Bordalíquido" onerror="this.outerHTML='<span style=\'font-size:20px;font-weight:800;color:#FEE440\'>Bordalíquido</span>'"></div>
+    <div class="footer-links">
+      <a href="#">Productos</a>
+      <a href="#">Proyectos</a>
+      <a href="#">Distribuidores</a>
+      <a href="#">Nosotros</a>
+      <a href="#">Blog</a>
+      <a href="#">Contacto</a>
+    </div>
+    <div class="footer-socials">
+      <a href="#" class="soc-btn" title="Facebook"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+      <a href="#" class="soc-btn" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><defs><radialGradient id="igF" cx="30%" cy="107%" r="150%"><stop offset="0%" stop-color="#fdf497"/><stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/><stop offset="90%" stop-color="#285AEB"/></radialGradient></defs><path fill="url(#igF)" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+      <a href="#" class="soc-btn" title="YouTube"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path fill="#FF0000" d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Bordalíquido — Pinturas Fantasía SAS · Medellín, Colombia</span>
+    <span>info@pinturasfantasia.com</span>
+  </div>
+</footer>
+
+</body>
+</html>
