@@ -382,24 +382,27 @@
     }
 
     /* BADGE */
-    .proposal-badge {
-      position: fixed;
-      top: 12px; right: 12px;
-      background: #F25F5C;
-      color: #fff;
-      font-family: 'Poppins', sans-serif;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 8px 16px;
-      border-radius: 20px;
-      z-index: 9999;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.2);
-    }
+    .proposal-badge{display:none}
+    .proposal-overlay{position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px}
+    .proposal-modal{background:#111;color:#FEE440;border-radius:18px;padding:36px 40px;max-width:460px;width:100%;text-align:center;position:relative;box-shadow:0 24px 64px rgba(0,0,0,.45)}
+    .proposal-modal h2{font-size:22px;font-weight:800;letter-spacing:.04em;margin-bottom:8px}
+    .proposal-modal p{font-size:14px;color:#e8d88a;line-height:1.6;margin-bottom:24px}
+    .proposal-modal .pill{display:inline-block;background:#FEE440;color:#111;font-size:11px;font-weight:700;letter-spacing:.1em;padding:4px 12px;border-radius:30px;margin-bottom:20px}
+    .proposal-modal .close-btn{background:#FEE440;color:#111;border:none;cursor:pointer;font-weight:800;font-size:14px;padding:11px 28px;border-radius:30px;transition:.18s}
+    .proposal-modal .close-btn:hover{background:#fff}
   </style>
 </head>
 <body>
 
-<div class="proposal-badge">Propuesta C — Cálida y Creativa</div>
+<!-- PROPOSAL MODAL -->
+<div class="proposal-overlay" id="proposalOverlay">
+  <div class="proposal-modal">
+    <div class="pill">PROTOTIPO</div>
+    <h2>Propuesta C</h2>
+    <p>Cálida y Creativa<br>Esta es una propuesta de rediseño para Bordalíquido.<br>Explora libremente y cierra esta ventana para verla.</p>
+    <button class="close-btn" onclick="document.getElementById('proposalOverlay').style.display='none'">Explorar propuesta →</button>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -651,7 +654,7 @@
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <span class="footer-brand-name"><img src="assets/img/logo/logo-bordaliquido.png" alt="Bordalíquido" onerror="this.outerHTML='<span style=\'font-family:Dancing Script,cursive;font-size:24px;color:#F5E6CA\'>Bordalíquido</span>'"></span>
+      <span class="footer-brand-name"><img src="assets/img/logo/logo-bordaliquido.png" alt="Bordalíquido" style="filter:brightness(0) invert(1);" onerror="this.outerHTML='<span style=\'font-family:Dancing Script,cursive;font-size:24px;color:#F5E6CA\'>Bordalíquido</span>'"></span>
       <p>Productores de pinturas para manualidades desde el año 2000. Empresa familiar de Medellín, Colombia.</p>
       <div class="footer-socials">
         <a href="#" title="Facebook"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
@@ -686,6 +689,96 @@
     <span>Política de privacidad · Términos y condiciones</span>
   </div>
 </footer>
+
+<script>
+/* ===== Interactividad Propuesta C (no modifica diseño) ===== */
+(function(){
+  'use strict';
+  var ACCENT='#F25F5C', ACCENT_TEXT='#fff';
+
+  var toastWrap;
+  function toast(msg){
+    if(!toastWrap){
+      toastWrap=document.createElement('div');
+      toastWrap.style.cssText='position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:99999;display:flex;flex-direction:column;gap:10px;align-items:center;pointer-events:none;';
+      document.body.appendChild(toastWrap);
+    }
+    var t=document.createElement('div');
+    t.textContent=msg;
+    t.style.cssText='background:'+ACCENT+';color:'+ACCENT_TEXT+';font-family:Poppins,sans-serif;font-size:14px;font-weight:600;padding:12px 22px;border-radius:30px;box-shadow:0 6px 24px rgba(0,0,0,0.25);opacity:0;transform:translateY(10px);transition:opacity .25s,transform .25s;';
+    toastWrap.appendChild(t);
+    requestAnimationFrame(function(){t.style.opacity='1';t.style.transform='translateY(0)';});
+    setTimeout(function(){t.style.opacity='0';t.style.transform='translateY(10px)';setTimeout(function(){t.remove();},300);},2200);
+  }
+
+  var lb;
+  function openLightbox(src,caption){
+    if(!lb){
+      lb=document.createElement('div');
+      lb.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:99998;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;opacity:0;transition:opacity .25s;cursor:zoom-out;padding:40px;';
+      var img=document.createElement('img');
+      img.style.cssText='max-width:90%;max-height:80%;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,0.5);object-fit:contain;';
+      var cap=document.createElement('div');
+      cap.style.cssText='color:#fff;font-family:Poppins,sans-serif;font-size:14px;text-align:center;max-width:600px;';
+      lb._img=img; lb._cap=cap; lb.appendChild(img); lb.appendChild(cap);
+      lb.addEventListener('click',closeLightbox);
+      document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLightbox();});
+      document.body.appendChild(lb);
+    }
+    lb._img.src=src; lb._cap.textContent=caption||''; lb.style.display='flex';
+    requestAnimationFrame(function(){lb.style.opacity='1';});
+  }
+  function closeLightbox(){ if(lb){lb.style.opacity='0';setTimeout(function(){lb.style.display='none';},250);} }
+
+  /* --- Carrito --- */
+  var cart=0;
+  document.querySelectorAll('.btn-add').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      cart++;
+      var card=btn.closest('.prod-card');
+      var name=card?card.querySelector('h3').textContent:'Producto';
+      toast('✓ '+name+' agregado ('+cart+')');
+    });
+  });
+
+  /* --- Scroll suave navegación --- */
+  function scrollTo(sel){var el=document.querySelector(sel); if(el) window.scrollTo({top:el.getBoundingClientRect().top+window.pageYOffset-80,behavior:'smooth'});}
+  var navMap={'Inicio':'body','Productos':'.prod-section','Inspiración':'.projects-section','Distribuidores':'footer','Nosotros':'.story-section'};
+  document.querySelectorAll('nav .nav-links a').forEach(function(a){
+    var t=a.textContent.trim();
+    if(navMap[t]){a.dataset.handled='1';a.addEventListener('click',function(e){e.preventDefault();navMap[t]==='body'?window.scrollTo({top:0,behavior:'smooth'}):scrollTo(navMap[t]);});}
+  });
+  document.querySelectorAll('.nav-cta, .btn-warm').forEach(function(a){a.dataset.handled='1';a.addEventListener('click',function(e){e.preventDefault();scrollTo('.prod-section');});});
+  document.querySelectorAll('.btn-outline').forEach(function(a){a.dataset.handled='1';a.addEventListener('click',function(e){e.preventDefault();scrollTo('.projects-section');});});
+
+  /* --- WhatsApp feedback --- */
+  document.querySelectorAll('.nav-wsp').forEach(function(a){a.dataset.handled='1';a.addEventListener('click',function(e){e.preventDefault();toast('💬 Abriendo chat de WhatsApp...');});});
+
+  /* --- Categorías feedback --- */
+  document.querySelectorAll('.cat-card').forEach(function(c){
+    c.dataset.handled='1';
+    c.addEventListener('click',function(e){e.preventDefault();var h=c.querySelector('h3');toast('Abriendo categoría: '+(h?h.textContent:''));});
+  });
+
+  /* --- Galería proyectos -> lightbox --- */
+  document.querySelectorAll('.proj-card').forEach(function(card){
+    var img=card.querySelector('img');
+    card.style.cursor='zoom-in';
+    card.addEventListener('click',function(){var h=card.querySelector('h3'); if(img && img.getAttribute('src')) openLightbox(img.getAttribute('src'), h?h.textContent:'');});
+  });
+
+  /* --- Evitar saltos "#" --- */
+  document.querySelectorAll('a[href="#"]').forEach(function(a){a.addEventListener('click',function(e){if(!a.dataset.handled)e.preventDefault();});});
+
+  /* --- Aparición al hacer scroll --- */
+  if('IntersectionObserver' in window){
+    var secs=document.querySelectorAll('.story-section, .cats-section, .prod-section, .projects-section, .training-section');
+    secs.forEach(function(s){s.style.opacity='0';s.style.transform='translateY(24px)';s.style.transition='opacity .6s ease, transform .6s ease';});
+    var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='none';io.unobserve(e.target);}});},{threshold:0.1});
+    secs.forEach(function(s){io.observe(s);});
+  }
+})();
+</script>
 
 </body>
 </html>
